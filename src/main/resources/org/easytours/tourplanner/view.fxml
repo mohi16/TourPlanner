@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.skin.TableHeaderRow?>
+<?import javafx.collections.FXCollections?>
+<GridPane hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.Controller">
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints hgrow="NEVER" />
+    </columnConstraints>
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Button onAction="#onHelloButtonClick" text="File" GridPane.columnIndex="0" maxWidth="Infinity"/>
+    <Button onAction="#onHelloButtonClick" text="Edit" GridPane.columnIndex="1" maxWidth="Infinity" />
+    <Button onAction="#onHelloButtonClick" text="Options" GridPane.columnIndex="2" maxWidth="Infinity"/>
+    <Button onAction="#onHelloButtonClick" text=" " GridPane.columnIndex="3" maxWidth="Infinity" />
+    <Button onAction="#onHelloButtonClick" text="Help" GridPane.columnIndex="4" maxWidth="Infinity" />
+    <TextField promptText="Search"  fx:id="searchTextField" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="1" />
+    <Button onAction="#onSearchButtonClick" text="Lupe" GridPane.columnIndex="4" GridPane.rowIndex="1" maxWidth="Infinity"/>
+
+    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+        <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+        </padding>
+        <HBox>
+            <Label text="Tours" />
+            <Button alignment="CENTER_RIGHT" text="+" />
+            <Button alignment="CENTER_RIGHT" text="-" />
+            <Button alignment="CENTER_RIGHT" text="[]" />
+        </HBox>
+        <Label text="- Tour 1" />
+        <Label text="- Tour 2" />
+        <Label text="- Tour 3" />
+        <Label text="... " />
+    </VBox>
+    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
+        <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+        </padding>
+        <Label text="Title:" />
+        <FlowPane>
+            <ToggleButton text="Route" />
+            <ToggleButton text="Description" />
+        </FlowPane>
+        <TextArea/>
+    </VBox>
+    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3">
+        <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+        </padding>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="NEVER" />
+            </columnConstraints>
+            <Label text="Logs:" GridPane.columnIndex="0" />
+            <Button text="+" GridPane.columnIndex="1"/>
+            <Button text="-" GridPane.columnIndex="2"/>
+            <Button text="[]" GridPane.columnIndex="3"/>
+        </GridPane>
+        <TableView>
+            <columns>
+                <TableColumn text="Date"/>
+                <TableColumn text="Duration"/>
+                <TableColumn text="Distance"/>
+                <TableColumn text="..."/>
+            </columns>
+        </TableView>
+    </VBox>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+
+</GridPane>

@@ -1,12 +1,11 @@
-package org.easytours.tourplanner;
+package org.easytours.tourplanner.viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class ViewModel {
+public class SearchBarViewModel {
     private final StringProperty searchString = new SimpleStringProperty();
 
-    //methods
     public String getSearchString(){
         return searchString.get();
     }

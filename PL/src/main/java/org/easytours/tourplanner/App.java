@@ -1,7 +1,6 @@
 package org.easytours.tourplanner;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +14,9 @@ import java.util.Locale;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        BusinessClass bc = new BusinessClass();
+        bc.irgendwas();
+
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view.fxml"));
         Parent root = FXMLDependencyInjection.load("view.fxml", Locale.GERMAN);
         Scene scene = new Scene(root, 320, 240);

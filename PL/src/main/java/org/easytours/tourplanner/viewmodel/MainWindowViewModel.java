@@ -1,8 +1,5 @@
 package org.easytours.tourplanner.viewmodel;
 
-import org.easytours.tourplanner.controller.TourDetailsController;
-import org.easytours.tourplanner.controller.TourOverviewController;
-
 public class MainWindowViewModel {
     private SearchBarViewModel searchBarViewModel;
     private TourOverviewViewModel tourOverviewViewModel;

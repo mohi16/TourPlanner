@@ -2,8 +2,6 @@ package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
 import org.easytours.tourplanner.viewmodel.MainWindowViewModel;
-import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
-import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 
 public class MainWindowController {
     @FXML

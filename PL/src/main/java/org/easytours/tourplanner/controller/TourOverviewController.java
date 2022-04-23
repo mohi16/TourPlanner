@@ -1,6 +1,5 @@
 package org.easytours.tourplanner.controller;
 
-import org.easytours.tourplanner.viewmodel.SearchBarViewModel;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 
 public class TourOverviewController {

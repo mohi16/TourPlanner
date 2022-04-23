@@ -4,7 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane gridLinesVisible="true" hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
+<?import java.net.URL?>
+
+<!--<GridPane gridLinesVisible="true" hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">-->
+<GridPane hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
+    <stylesheets>
+        <URL value="@css/view.css"/>
+    </stylesheets>
 
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" />
@@ -23,63 +29,13 @@
     <Button onAction="#onHelloButtonClick" text="%Menu_Options" GridPane.columnIndex="2" maxWidth="Infinity"/>
     <Button onAction="#onHelloButtonClick" text=" " GridPane.columnIndex="3" maxWidth="Infinity" />
     <Button onAction="#onHelloButtonClick" text="%Menu_Help" GridPane.columnIndex="4" maxWidth="Infinity" />
+
     <fx:include fx:id="searchBar" source="searchbar.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="5" maxWidth="Infinity"/>
-    <!--<TextField promptText="Search"  fx:id="searchTextField" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="1" />
-    <Button onAction="#onSearchButtonClick" text="Lupe" GridPane.columnIndex="4" GridPane.rowIndex="1" maxWidth="Infinity"/>
-    -->
 
-    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
-        <padding>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-        </padding>
+    <fx:include fx:id="tourOverview" source="touroverview.fxml"/>
 
-        <HBox>
-            <Label text="%TourOverview_Tours" />
-            <Button alignment="CENTER_RIGHT" text="+" />
-            <Button alignment="CENTER_RIGHT" text="-" />
-            <Button alignment="CENTER_RIGHT" text="[]" />
-        </HBox>
-        <Label text="- Tour 1" />
-        <Label text="- Tour 2" />
-        <Label text="- Tour 3" />
-        <Label text="... " />
-    </VBox>
-    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
-        <padding>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-        </padding>
-        <Label text="%TourDetails_Title" />
-        <FlowPane>
-            <ToggleButton text="%TourDetails_Route" />
-            <ToggleButton text="%TourDetails_Description" />
-        </FlowPane>
-        <TextArea/>
-    </VBox>
-    <VBox style="-fx-border-width: 1; -fx-border-color: grey" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3">
-        <padding>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-        </padding>
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="NEVER" />
-                <ColumnConstraints hgrow="NEVER" />
-                <ColumnConstraints hgrow="NEVER" />
-            </columnConstraints>
-            <Label text="%TourDetails_Logs" GridPane.columnIndex="0" />
-            <Button text="+" GridPane.columnIndex="1"/>
-            <Button text="-" GridPane.columnIndex="2"/>
-            <Button text="[]" GridPane.columnIndex="3"/>
-        </GridPane>
-        <TableView>
-            <columns>
-                <TableColumn text="%TourDetails_Date"/>
-                <TableColumn text="%TourDetails_Duration"/>
-                <TableColumn text="%TourDetails_Distance"/>
-                <TableColumn text="%TourDetails_ppp"/>
-            </columns>
-        </TableView>
-    </VBox>
+    <fx:include fx:id="tourDetails" source="tourdetails.fxml"/>
+
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />

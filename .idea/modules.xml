@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BLL/BLL.iml" filepath="$PROJECT_DIR$/BLL/BLL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DAL/DAL.iml" filepath="$PROJECT_DIR$/DAL/DAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PL/PL.iml" filepath="$PROJECT_DIR$/PL/PL.iml" />
       <module fileurl="file://$PROJECT_DIR$/tourplanner.iml" filepath="$PROJECT_DIR$/tourplanner.iml" />
     </modules>
   </component>

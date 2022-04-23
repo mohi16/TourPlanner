@@ -6,10 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="tourplanner" />
+        <module name="PL" />
+        <module name="DAL" />
+        <module name="BLL" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="BLL" target="17" />
+      <module name="DAL" target="17" />
+      <module name="PL" target="17" />
       <module name="tourplanner" target="17" />
     </bytecodeTargetLevel>
   </component>

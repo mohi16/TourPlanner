@@ -6,7 +6,13 @@
 
     <groupId>org.easytours</groupId>
     <artifactId>tourplanner</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>BLL</module>
+        <module>DAL</module>
+        <module>PL</module>
+    </modules>
     <name>tourplanner</name>
 
     <properties>

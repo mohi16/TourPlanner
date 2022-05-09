@@ -15,7 +15,7 @@ public class SearchBarController {
     }
 
     @FXML
-    protected void onSearchButtonClick(){
+    protected void onSearchButtonClick() {
         System.out.println(searchBarViewModel.getSearchString());
         searchTextField.clear();
     }

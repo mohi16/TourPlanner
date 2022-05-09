@@ -15,14 +15,15 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         BusinessClass bc = new BusinessClass();
-        bc.irgendwas();
+        bc.irgendwas(); //test
 
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view.fxml"));
-        Parent root = FXMLDependencyInjection.load("view.fxml", Locale.GERMAN);
-        Scene scene = new Scene(root, 320, 240);
+        Parent root = FXMLDependencyInjection.load("view.fxml", AppConfig.LOCALE);
+        Scene scene = new Scene(root, 1280, 720);
         stage.setTitle("Tour-Planner");
         stage.setScene(scene);
         stage.show();
+
         Button btn = new Button();
         btn.setMaxWidth(Double.MAX_VALUE);
 

@@ -18,8 +18,8 @@
 
     <HBox>
         <Label text="%TourOverview_Tours" />
-        <Button alignment="CENTER_RIGHT" text="+" />
-        <Button alignment="CENTER_RIGHT" text="-" />
+        <Button fx:id="addTourButton" alignment="CENTER_RIGHT" text="+" onAction="#onAddTourButtonClick" />
+        <Button fx:id="deleteTourButton" alignment="CENTER_RIGHT" text="-" onAction="#onDeleteTourButtonClick" />
         <Button alignment="CENTER_RIGHT" text="[]" />
     </HBox>
     <Label text="- Tour 1" />

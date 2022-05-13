@@ -24,4 +24,5 @@ public class SearchBarController {
     public void initialize() {
         searchTextField.textProperty().bindBidirectional(searchBarViewModel.searchStringProperty());
     }
+
 }

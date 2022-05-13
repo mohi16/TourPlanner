@@ -22,8 +22,10 @@
         <Button fx:id="deleteTourButton" alignment="CENTER_RIGHT" text="-" onAction="#onDeleteTourButtonClick" />
         <Button alignment="CENTER_RIGHT" text="[]" />
     </HBox>
-    <Label text="- Tour 1" />
-    <Label text="- Tour 2" />
-    <Label text="- Tour 3" />
-    <Label text="... " />
+    <ListView fx:id="toursList">
+        <Label text="- Tour 1" />
+        <Label text="- Tour 2" />
+        <Label text="- Tour 3" />
+        <Label text="... " />
+    </ListView>
 </VBox>

@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.easytours.tourplanner.viewmodel.AddTourViewModel;
 
+
 public class AddTourController {
     private final AddTourViewModel addTourViewModel;
 
@@ -36,4 +37,14 @@ public class AddTourController {
     public AddTourController(AddTourViewModel addTourViewModel) {
         this.addTourViewModel = addTourViewModel;
     }
+
+    public void initialize() {
+        name.textProperty().bindBidirectional(addTourViewModel.getNameProperty());
+    }
+
+    public String getName() {
+        return addTourViewModel.getName();
+    }
+
+
 }

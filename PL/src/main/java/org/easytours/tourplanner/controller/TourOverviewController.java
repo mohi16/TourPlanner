@@ -1,15 +1,16 @@
 package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.easytours.tourplanner.AppConfig;
+import org.easytours.tourplanner.dialog.TourOverviewDialogHandler;
+import org.easytours.tourplanner.viewmodel.AddTourViewModel;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 
 import java.io.IOException;
@@ -24,70 +25,52 @@ public class TourOverviewController {
     @FXML
     private Button deleteTourButton;
 
+    @FXML
+    private ListView<String> toursList;
+
     public TourOverviewController(TourOverviewViewModel tourOverviewViewModel) {
         this.tourOverviewViewModel = tourOverviewViewModel;
     }
 
-    public Stage createAddDialog() throws IOException {
-        Dialog<String> dialog = new Dialog<>();
-        dialog.getDialogPane().setContent(FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
+    public String addTour() throws IOException {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
+
         dialog.showAndWait();
-        //Parent root = FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale());
 
-        /*
-        Stage stage = new Stage();
-        Scene scene = new Scene(root, 600, 700);
-        stage.setTitle("Add Tour");
-        stage.setScene(scene);
-        //stage.sizeToScene();
-        //stage.show();
-        stage.initModality(Modality.APPLICATION_MODAL);
-         */
-        //return stage;
-        return null;
+        //FXMLLoader loader = FXMLDependencyInjection.getLoader("addtour.fxml", AppConfig.getLocale());
+        //AddTourController controller = loader.getController();
+        AddTourController controller = (AddTourController)ControllerFactory.getInstance().create(AddTourController.class);
 
+        return controller.getName();
     }
 
     @FXML
     public void onAddTourButtonClick() {
         System.out.println("Add");
 
-        /*
-        Dialog<String> dialog = new Dialog<>();
         try {
-            dialog.getDialogPane().setContent(FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
-        } catch (IOException e) {
-            //throw new RuntimeException(e);
-            e.printStackTrace();
-            return;
-        }
-        dialog.showAndWait();
-         */
-
-        //////////////////////////////////////////////
-        Dialog<ButtonType> dialog = new Dialog<>();
-        try {
-            dialog.setDialogPane((DialogPane)FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
-        } catch (IOException e) {
-            //throw new RuntimeException(e);
-            e.printStackTrace();
-            return;
-        }
-        dialog.showAndWait();
-
-        System.out.println(dialog.getResult().getButtonData().getTypeCode());
-        /////////////////////////////////////////////
-
-        /*
-        Stage dialog = null;
-        try {
-            dialog = createAddDialog();
+            String name = addTour();
+            if (!name.isEmpty()) {
+                tourOverviewViewModel.toursListProperty().add(name);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
-        dialog.showAndWait();
-        */
+
+    }
+
+    /*
+    public int getTourCount(){
+        return tourOverviewViewModel.getTourCount();
+    }
+
+     */
+
+    @FXML
+    public void initialize() {
+        //searchTextField.textProperty().bindBidirectional(searchBarViewModel.searchStringProperty());
+        toursList.setItems(tourOverviewViewModel.toursListProperty());
     }
 
     @FXML

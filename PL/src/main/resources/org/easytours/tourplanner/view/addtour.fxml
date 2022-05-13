@@ -9,12 +9,46 @@
 <?import javafx.geometry.Insets?>
 
 <?import java.net.URL?>
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.easytours.tourplanner.controller.AddTourController">
+
+    <stylesheets>
+        <URL value="@css/addtour.css"/>
+    </stylesheets>
+
+    <content>
+        <VBox spacing="5.0">
+            <Label text="%AddTour_Name" />
+            <TextField fx:id="name" />
+            <Label text="%AddTour_Description"/>
+            <TextArea fx:id="description" />
+            <Label text="%AddTour_From" />
+            <TextField fx:id="from"/>
+            <Label text="%AddTour_To"/>
+            <TextField fx:id="to" />
+            <Label text="%AddTour_Distance" />
+            <TextField fx:id="distance" />
+            <Label text="%AddTour_EstTime" />
+            <TextField fx:id="estTime" />
+            <Label text="%AddTour_TransportType" />
+            <TextField fx:id="transportType"/>
+            <Label text="%AddTour_RouteInfo" />
+            <TextField fx:id="routeInfo"/>
+        </VBox>
+    </content>
+
+    <ButtonType text="%Dialog_OK" buttonData="OK_DONE"/>
+    <ButtonType text="%Dialog_Cancel" buttonData="CANCEL_CLOSE"/>
+</DialogPane>
+
+<!--
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.easytours.tourplanner.controller.AddTourController"
       >
     <stylesheets>
-        <URL value="@css/addTour.css"/>
+        <URL value="@css/addtour.css"/>
     </stylesheets>
     <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED">
 
@@ -49,3 +83,4 @@
         </content>
     </ScrollPane>
 </VBox>
+-->

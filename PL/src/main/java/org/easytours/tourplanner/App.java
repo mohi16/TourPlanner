@@ -18,7 +18,7 @@ public class App extends Application {
         bc.irgendwas(); //test
 
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view.fxml"));
-        Parent root = FXMLDependencyInjection.load("view.fxml", AppConfig.LOCALE);
+        Parent root = FXMLDependencyInjection.load("view.fxml", AppConfig.getLocale());
         Scene scene = new Scene(root, 1280, 720);
         stage.setTitle("Tour-Planner");
         stage.setScene(scene);

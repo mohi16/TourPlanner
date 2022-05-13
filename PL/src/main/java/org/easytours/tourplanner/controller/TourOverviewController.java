@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.easytours.tourplanner.AppConfig;
@@ -26,8 +29,12 @@ public class TourOverviewController {
     }
 
     public Stage createAddDialog() throws IOException {
-        Parent root = FXMLDependencyInjection.load("addTour.fxml", AppConfig.LOCALE);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.getDialogPane().setContent(FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
+        dialog.showAndWait();
+        //Parent root = FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale());
 
+        /*
         Stage stage = new Stage();
         Scene scene = new Scene(root, 600, 700);
         stage.setTitle("Add Tour");
@@ -35,7 +42,9 @@ public class TourOverviewController {
         //stage.sizeToScene();
         //stage.show();
         stage.initModality(Modality.APPLICATION_MODAL);
-        return stage;
+         */
+        //return stage;
+        return null;
 
     }
 
@@ -43,6 +52,33 @@ public class TourOverviewController {
     public void onAddTourButtonClick() {
         System.out.println("Add");
 
+        /*
+        Dialog<String> dialog = new Dialog<>();
+        try {
+            dialog.getDialogPane().setContent(FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            e.printStackTrace();
+            return;
+        }
+        dialog.showAndWait();
+         */
+
+        //////////////////////////////////////////////
+        Dialog<ButtonType> dialog = new Dialog<>();
+        try {
+            dialog.setDialogPane((DialogPane)FXMLDependencyInjection.load("addtour.fxml", AppConfig.getLocale()));
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            e.printStackTrace();
+            return;
+        }
+        dialog.showAndWait();
+
+        System.out.println(dialog.getResult().getButtonData().getTypeCode());
+        /////////////////////////////////////////////
+
+        /*
         Stage dialog = null;
         try {
             dialog = createAddDialog();
@@ -51,6 +87,7 @@ public class TourOverviewController {
             return;
         }
         dialog.showAndWait();
+        */
     }
 
     @FXML

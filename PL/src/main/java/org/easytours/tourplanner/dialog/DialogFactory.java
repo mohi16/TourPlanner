@@ -11,7 +11,7 @@ public class DialogFactory {
     }
 
     public Stage create(Class<?> dialogClass) {
-
+        return null;
     }
 
     public static DialogFactory getInstance() {

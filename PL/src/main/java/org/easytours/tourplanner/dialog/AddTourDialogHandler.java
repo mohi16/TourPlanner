@@ -3,12 +3,14 @@ package org.easytours.tourplanner.dialog;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import org.easytours.tourplanner.AppConfig;
+import org.easytours.tourplanner.controller.AddTourController;
+import org.easytours.tourplanner.controller.ControllerFactory;
 import org.easytours.tourplanner.controller.FXMLDependencyInjection;
+import org.easytours.tourplanner.model.Tour;
 
 import java.io.IOException;
 
 public class AddTourDialogHandler {
-    /*
     public Tour createTour() {
         Dialog<ButtonType> dialog = new Dialog<>();
         try {
@@ -19,10 +21,9 @@ public class AddTourDialogHandler {
         }
 
         dialog.showAndWait();
-        if ()
 
-        return null;
+        AddTourController controller = (AddTourController) ControllerFactory.getInstance().create(AddTourController.class);
+
+        return controller.getTour();
     }
-
-     */
 }

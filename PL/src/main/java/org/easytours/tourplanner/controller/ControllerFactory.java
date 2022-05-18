@@ -1,5 +1,6 @@
 package org.easytours.tourplanner.controller;
 
+import org.easytours.tourplanner.dialog.AddTourDialogHandler;
 import org.easytours.tourplanner.viewmodel.MainWindowViewModel;
 import org.easytours.tourplanner.viewmodel.SearchBarViewModel;
 import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
@@ -17,6 +18,8 @@ public class ControllerFactory {
     private final TourDetailsViewModel tourDetailsViewModel;
     private final AddTourViewModel addTourViewModel;
 
+    private final AddTourDialogHandler addTourDialogHandler;
+
     private ControllerFactory() {
         searchBarViewModel = new SearchBarViewModel();
         tourOverviewViewModel = new TourOverviewViewModel();
@@ -24,6 +27,8 @@ public class ControllerFactory {
         addTourViewModel = new AddTourViewModel();
         mainWindowViewModel = new MainWindowViewModel(
                 searchBarViewModel, tourOverviewViewModel, tourDetailsViewModel);
+
+        addTourDialogHandler = new AddTourDialogHandler();
     }
 
     // Get Singleton instance
@@ -38,7 +43,7 @@ public class ControllerFactory {
         } else if (SearchBarController.class == controllerClass) {
             return new SearchBarController(searchBarViewModel);
         } else if (TourOverviewController.class == controllerClass) {
-            return new TourOverviewController(tourOverviewViewModel);
+            return new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
         } else if (TourDetailsController.class == controllerClass) {
             return new TourDetailsController(tourDetailsViewModel);
         } else if (AddTourController.class == controllerClass) {

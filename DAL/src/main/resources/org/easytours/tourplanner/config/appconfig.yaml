@@ -1,0 +1,5 @@
+lang: de
+db:
+  host: localhost
+  user: user
+  pw: pw

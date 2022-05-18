@@ -2,6 +2,7 @@ package org.easytours.tourplanner.viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.easytours.tourplanner.AppConfig;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -37,8 +38,8 @@ public class AddTourViewModel {
     }
 
     public LocalTime getEstTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return LocalTime.parse(estTime.get(), formatter);
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return LocalTime.parse(estTime.get(), AppConfig.getDateTimeFormatter());
     }
 
     public String getTransportType() {
@@ -51,5 +52,33 @@ public class AddTourViewModel {
 
     public final StringProperty getNameProperty() {
         return name;
+    }
+
+    public final StringProperty getDescriptionProperty() {
+        return description;
+    }
+
+    public final StringProperty getFromProperty() {
+        return from;
+    }
+
+    public final StringProperty getToProperty() {
+        return to;
+    }
+
+    public final StringProperty getDistanceProperty() {
+        return distance;
+    }
+
+    public final StringProperty getEstTimeProperty() {
+        return estTime;
+    }
+
+    public final StringProperty getTransportTypeProperty() {
+        return transportType;
+    }
+
+    public final StringProperty getRouteInfoProperty() {
+        return routeInfo;
     }
 }

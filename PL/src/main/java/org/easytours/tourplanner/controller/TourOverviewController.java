@@ -1,23 +1,18 @@
 package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.easytours.tourplanner.AppConfig;
-import org.easytours.tourplanner.dialog.TourOverviewDialogHandler;
-import org.easytours.tourplanner.viewmodel.AddTourViewModel;
+import org.easytours.tourplanner.dialog.AddTourDialogHandler;
+
+import org.easytours.tourplanner.model.Tour;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class TourOverviewController {
     private final TourOverviewViewModel tourOverviewViewModel;
+    private final AddTourDialogHandler dialogHandler;
 
     @FXML
     private Button addTourButton;
@@ -28,8 +23,9 @@ public class TourOverviewController {
     @FXML
     private ListView<String> toursList;
 
-    public TourOverviewController(TourOverviewViewModel tourOverviewViewModel) {
+    public TourOverviewController(TourOverviewViewModel tourOverviewViewModel, AddTourDialogHandler dialogHandler) {
         this.tourOverviewViewModel = tourOverviewViewModel;
+        this.dialogHandler = dialogHandler;
     }
 
     public String addTour() throws IOException {
@@ -49,15 +45,10 @@ public class TourOverviewController {
     public void onAddTourButtonClick() {
         System.out.println("Add");
 
-        try {
-            String name = addTour();
-            if (!name.isEmpty()) {
-                tourOverviewViewModel.toursListProperty().add(name);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        Tour tour = dialogHandler.createTour();
+        if (null != tour) {
+            tourOverviewViewModel.toursListProperty().add(tour.getName());
         }
-
     }
 
     /*

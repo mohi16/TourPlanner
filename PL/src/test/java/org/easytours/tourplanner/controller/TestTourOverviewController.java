@@ -1,12 +1,13 @@
 package org.easytours.tourplanner.controller;
 
+import org.easytours.tourplanner.AppConfig;
+import org.easytours.tourplanner.dialog.AddTourDialogHandler;
+import org.easytours.tourplanner.model.Tour;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import java.io.IOException;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,32 +15,51 @@ import static org.mockito.Mockito.*;
 
 public class TestTourOverviewController {
     private TourOverviewViewModel viewModel;
+    private AddTourDialogHandler addTourDialogHandler;
 
 
 
     @BeforeEach
     public void init() {
-        TourOverviewViewModel viewModel = mock(TourOverviewViewModel.class);
+        addTourDialogHandler = mock(AddTourDialogHandler.class);
     }
 
     @Test
     public void testAddTour() {
-        //TourOverviewController controller = new TourOverviewController(viewModel);
-        TourOverviewController controller = spy(new TourOverviewController(viewModel));
+        TourOverviewViewModel tourOverviewViewModel = new TourOverviewViewModel();
+        TourOverviewController controller = new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
 
-        try {
-            when(controller.addTour()).thenReturn("stringdernichtleerist");
-        } catch (IOException e) {
-            fail();
-        }
+        when(addTourDialogHandler.createTour()).thenReturn(
+                new Tour(
+                        "Tour1",
+                        "",
+                        "From",
+                        "To",
+                        10.5,
+                        LocalTime.parse("20:22:21", AppConfig.getDateTimeFormatter()),
+                        "Transport Type",
+                        "Route Info"
+                )
+        );
 
-        int size = controller.getTourCount();
+        int size = tourOverviewViewModel.toursListProperty().size();
 
         controller.onAddTourButtonClick();
 
-        assertEquals(size + 1, controller.getTourCount());
+        assertEquals(size + 1, tourOverviewViewModel.toursListProperty().size());
+        assertEquals("Tour1", tourOverviewViewModel.toursListProperty().get(0));
+    }
 
-        //assertEquals(controller.getTours());
+    @Test
+    public void testAddTourFail() {
+        TourOverviewViewModel tourOverviewViewModel = new TourOverviewViewModel();
+        TourOverviewController controller = new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
+
+        when(addTourDialogHandler.createTour()).thenReturn(null);
+
+        controller.onAddTourButtonClick();
+
+        assertEquals(0, tourOverviewViewModel.toursListProperty().size());
     }
 
 

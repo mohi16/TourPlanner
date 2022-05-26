@@ -27,10 +27,22 @@
             <TextField fx:id="from"/>
             <Label text="%AddTour_To"/>
             <TextField fx:id="to" />
-            <Label text="%AddTour_Distance" />
+            <!--<Label text="%AddTour_Distance" />
             <TextField fx:id="distance" />
-            <Label text="%AddTour_EstTime" />
-            <TextField fx:id="estTime" />
+            <GridPane hgap="5" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%AddTour_EstTimeHours" />
+                <TextField GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="estTimeHours" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="%AddTour_EstTimeMins" />
+                <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="estTimeMins" />
+                <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="%AddTour_EstTimeSecs" />
+                <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="estTimeSecs" />
+            </GridPane>-->
             <Label text="%AddTour_TransportType" />
             <TextField fx:id="transportType"/>
             <Label text="%AddTour_RouteInfo" />
@@ -41,46 +53,3 @@
     <ButtonType text="%Dialog_OK" buttonData="OK_DONE"/>
     <ButtonType text="%Dialog_Cancel" buttonData="CANCEL_CLOSE"/>
 </DialogPane>
-
-<!--
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.easytours.tourplanner.controller.AddTourController"
-      >
-    <stylesheets>
-        <URL value="@css/addtour.css"/>
-    </stylesheets>
-    <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED">
-
-        <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-        </padding>
-
-        <content>
-            <VBox spacing="5.0">
-                <Label text="%AddTour_Name" />
-                <TextField fx:id="name" />
-                <Label text="%AddTour_Description"/>
-                <TextArea fx:id="description" />
-                <Label text="%AddTour_From" />
-                <TextField fx:id="from"/>
-                <Label text="%AddTour_To"/>
-                <TextField fx:id="to" />
-                <Label text="%AddTour_Distance" />
-                <TextField fx:id="distance" />
-                <Label text="%AddTour_EstTime" />
-                <TextField fx:id="estTime" />
-                <Label text="%AddTour_TransportType" />
-                <TextField fx:id="transportType"/>
-                <Label text="%AddTour_RouteInfo" />
-                <TextField fx:id="routeInfo"/>
-
-                <HBox spacing="5.0">
-                    <Button fx:id="okButton" text="Ok"/>
-                    <Button fx:id="cancelButton" text="Cancel"/>
-                </HBox>
-            </VBox>
-        </content>
-    </ScrollPane>
-</VBox>
--->

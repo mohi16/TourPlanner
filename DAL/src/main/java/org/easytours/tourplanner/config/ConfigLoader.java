@@ -12,26 +12,34 @@ import java.util.HashMap;
 public class ConfigLoader {
     private static final String PATH = "./appconfig.yaml";
 
-    public AppConfig config;
+    private static AppConfig config;
 
-    public void load() throws IOException {
+    public static void load() throws IOException {
         File file = new File(PATH);
         if (!file.exists()) {
-            file.createNewFile();
+            if (!file.createNewFile())
+            {
+                System.out.println("file already exists XD");
+            }
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
 
             bw.write("lang: de\n");
-            bw.write("db:\n");
-            bw.write("  host: localhost\n");
-            bw.write("  user: user\n");
-            bw.write("  pw: pw\n");
+            bw.write("api: http://localhost:5000\n");
 
             bw.close();
         }
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 
-        config = mapper.readValue(PATH, AppConfig.class);
+        config = mapper.readValue(file, AppConfig.class);
+    }
+
+    public static void save() {
+        // save config
+    }
+
+    public static AppConfig getConfig() {
+        return config;
     }
 }

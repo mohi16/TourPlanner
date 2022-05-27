@@ -1,5 +1,6 @@
 package org.easytours.tourplanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easytours.tourplanner.config.ConfigLoader;
 
 import java.net.URI;
@@ -9,16 +10,27 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class HttpHandler {
-    public <T> HttpResponse<T> sendRequest(String route, HttpMethod method) {
-        return null;
+    public HttpResponse<String> sendRequest(String route, HttpMethod method) throws Exception {
+        HttpClient client = getClient();
+        HttpRequest request  = getRequest(route, method.name(), HttpRequest.BodyPublishers.noBody());
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public <T> HttpResponse<T> sendRequest(String route, HttpMethod method, String body) {
-        return null;
+    public HttpResponse<String> sendRequest(String route, HttpMethod method, String body) throws Exception {
+        HttpClient client = getClient();
+        HttpRequest request  = getRequest(route, method.name(), HttpRequest.BodyPublishers.ofString(body));
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public <T, B> HttpResponse<T> sendRequest(String route, HttpMethod method, B body) {
-        return null;
+        HttpClient client = getClient();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        HttpRequest request  = getRequest(route, method.name(), HttpRequest.BodyPublishers.ofString(body));
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     private HttpClient getClient() {
@@ -27,7 +39,7 @@ public class HttpHandler {
             .build();
     }
 
-    public HttpRequest getRequest(String method, HttpRequest.BodyPublisher body) throws URISyntaxException {
+    public HttpRequest getRequest(String route, String method, HttpRequest.BodyPublisher body) throws URISyntaxException {
         return HttpRequest.newBuilder()
             .uri(new URI(ConfigLoader.getConfig().getApi()))
             .method(method, body)

@@ -1,21 +1,8 @@
 package org.easytours.tourplanner.controller;
 
-import org.easytours.tourplanner.App;
-import org.easytours.tourplanner.AppConfig;
 import org.easytours.tourplanner.BusinessLogic;
-import org.easytours.tourplanner.SimpleBusinessLogic;
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
-import org.easytours.tourplanner.utils.TimeUtils;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
-import org.easytours.tpmodel.Tour;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalTime;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import static org.mockito.Mockito.*;
 
 public class TestTourOverviewController {
     private TourOverviewViewModel viewModel;

@@ -3,7 +3,6 @@ package org.easytours.tourplanner.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.easytours.tourplanner.App;
-import org.easytours.tourplanner.AppConfig;
 import org.easytours.tourplanner.config.ConfigLoader;
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
 
@@ -56,11 +55,20 @@ public class TourOverviewController {
 
         Tour tour = dialogHandler.createTour();
         if (null != tour) {
+            /*Thread th = new Thread(() -> {
+                Dialog<String> d = new Dialog<>();
+                d.showAndWait();
+            });*/
             try {
                 /*if (App.getBusinessLogic().addTour(tour)) {
                     tourOverviewViewModel.toursListProperty().add(tour.getName());
                 }*/
+                // start waiting dialog
+
+                //th.start();
                 App.getBusinessLogic().addTour(tour);
+                // close waiting dialog
+                //th.join();
                 tourOverviewViewModel.toursListProperty().add(tour.getName());
             } catch (Exception e) {
                 e.printStackTrace();

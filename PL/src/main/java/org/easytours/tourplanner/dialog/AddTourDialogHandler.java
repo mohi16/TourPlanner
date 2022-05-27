@@ -2,7 +2,6 @@ package org.easytours.tourplanner.dialog;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import org.easytours.tourplanner.AppConfig;
 import org.easytours.tourplanner.config.ConfigLoader;
 import org.easytours.tourplanner.controller.AddTourController;
 import org.easytours.tourplanner.controller.ControllerFactory;

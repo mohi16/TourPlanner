@@ -99,18 +99,4 @@ public class SimpleHttpService implements HttpService {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(response.body(), Tour.class);
     }
-
-    /*private HttpClient getClient() {
-        return HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_2)
-                .build();
-    }
-
-    public HttpRequest getRequest(String method, BodyPublisher body) throws URISyntaxException {
-        return HttpRequest.newBuilder()
-                .uri(new URI(ConfigLoader.getConfig().getApi()))
-                .method(method, body)
-                .header("Content-Type", "application/json")
-                .build();
-    }*/
 }

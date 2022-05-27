@@ -1,3 +1,4 @@
+/*
 package org.easytours.tourplanner.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,3 +44,4 @@ public class ConfigLoader {
         return config;
     }
 }
+*/

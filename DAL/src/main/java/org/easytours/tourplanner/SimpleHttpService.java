@@ -2,7 +2,6 @@ package org.easytours.tourplanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.easytours.tourplanner.config.ConfigLoader;
 import org.easytours.tpmodel.Tour;
 
 import java.io.IOException;

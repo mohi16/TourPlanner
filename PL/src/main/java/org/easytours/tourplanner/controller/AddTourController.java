@@ -3,13 +3,9 @@ package org.easytours.tourplanner.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import org.easytours.tourplanner.utils.TimeUtils;
-import org.easytours.tourplanner.utils.Triple;
 import org.easytours.tourplanner.viewmodel.AddTourViewModel;
 import org.easytours.tpmodel.Tour;
 
-import java.sql.Time;
-import java.time.format.DateTimeParseException;
 
 
 public class AddTourController {

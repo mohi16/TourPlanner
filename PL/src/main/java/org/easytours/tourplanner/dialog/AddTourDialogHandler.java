@@ -1,18 +1,19 @@
 package org.easytours.tourplanner.dialog;
 
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import org.easytours.tourplanner.config.ConfigLoader;
 import org.easytours.tourplanner.controller.AddTourController;
 import org.easytours.tourplanner.controller.ControllerFactory;
 import org.easytours.tourplanner.controller.FXMLDependencyInjection;
 import org.easytours.tpmodel.Tour;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AddTourDialogHandler {
     private Dialog<ButtonType> getDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
+        /*Dialog<ButtonType> dialog = new Dialog<>();
         try {
             dialog.setDialogPane(FXMLDependencyInjection.load("addtour.fxml", ConfigLoader.getConfig().getLang()));
         } catch (IOException e) {
@@ -20,7 +21,9 @@ public class AddTourDialogHandler {
             return null;
         }
 
-        return dialog;
+        return dialog;*/
+
+        return DialogHandler.getDialog("addtour.fxml");
     }
 
     private AddTourController getController() {
@@ -39,9 +42,12 @@ public class AddTourDialogHandler {
 
         controller.clear();
 
-        dialog.showAndWait();
-
-        return controller.getTour();
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && ButtonData.OK_DONE == result.get().getButtonData()) {
+            return controller.getTour();
+        } else {
+            return null;
+        }
     }
 
     public Tour editTour(Tour tour) {
@@ -56,8 +62,11 @@ public class AddTourDialogHandler {
 
         controller.fill(tour);
 
-        dialog.showAndWait();
-
-        return controller.getTour();
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && ButtonData.OK_DONE == result.get().getButtonData()) {
+            return controller.getTour();
+        } else {
+            return null;
+        }
     }
 }

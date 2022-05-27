@@ -10,9 +10,9 @@ public enum HttpStatusCode {
     NOT_FOUND(404, "NOT FOUND ERROR ERROR HELP");
 
 
-    public int code;
+    public final int code;
 
-    public String message;
+    public final String message;
 
     HttpStatusCode(int code, String message){
         this.code = code;

@@ -1,11 +1,14 @@
 package org.easytours.tourplanner.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.easytours.tourplanner.App;
-import org.easytours.tourplanner.config.ConfigLoader;
+import org.easytours.tourplanner.config.Config;
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
 
+import org.easytours.tourplanner.dialog.DialogHandler;
+import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.easytours.tpmodel.Tour;
 
@@ -36,40 +39,36 @@ public class TourOverviewController {
         tourOverviewViewModel.toursListProperty().add("Tour 3");*/
     }
 
-    public String addTour() throws IOException {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(FXMLDependencyInjection.load("addtour.fxml", ConfigLoader.getConfig().getLang()));
-
-        dialog.showAndWait();
-
-        //FXMLLoader loader = FXMLDependencyInjection.getLoader("addtour.fxml", AppConfig.getLocale());
-        //AddTourController controller = loader.getController();
-        AddTourController controller = (AddTourController)ControllerFactory.getInstance().create(AddTourController.class);
-
-        return controller.getName();
-    }
-
     @FXML
     public void onAddTourButtonClick() {
         System.out.println("Add");
 
         Tour tour = dialogHandler.createTour();
         if (null != tour) {
-            /*Thread th = new Thread(() -> {
-                Dialog<String> d = new Dialog<>();
-                d.showAndWait();
-            });*/
             try {
-                /*if (App.getBusinessLogic().addTour(tour)) {
-                    tourOverviewViewModel.toursListProperty().add(tour.getName());
-                }*/
-                // start waiting dialog
-
-                //th.start();
-                App.getBusinessLogic().addTour(tour);
+                Wrapper<Boolean> badTour = new Wrapper<>(false);
+                Thread th = new Thread(() -> {
+                    try {
+                        App.getBusinessLogic().addTour(tour);
+                        tourOverviewViewModel.toursListProperty().add(tour.getName());
+                    } catch (IllegalArgumentException e) {
+                        badTour.set(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                th.start();
+                Dialog<String> d = new Dialog<>();
+                d.setContentText(App.getResourceBundle().getString("Msg_Wait"));
+                d.show();
+                th.join();
                 // close waiting dialog
-                //th.join();
-                tourOverviewViewModel.toursListProperty().add(tour.getName());
+                d.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                d.close();
+                if (badTour.get()) {
+                    DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,10 +80,15 @@ public class TourOverviewController {
         System.out.println("Delete");
 
         try {
-            /*if (App.getBusinessLogic().deleteTour(getSelectedTourName())) {
-                tourOverviewViewModel.toursListProperty().remove(getSelectedTourIndex());
-            }*/
-            App.getBusinessLogic().deleteTour(getSelectedTourName());
+            String tourname = null;
+            try {
+                tourname = getSelectedTourName();
+            } catch (IndexOutOfBoundsException e) {
+                DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+                return;
+            }
+
+            App.getBusinessLogic().deleteTour(tourname);
             tourOverviewViewModel.toursListProperty().remove(getSelectedTourIndex());
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +107,13 @@ public class TourOverviewController {
     public void onEditTourButtonClick() {
         System.out.println("Edit");
 
-        String name = getSelectedTourName();
+        String name = null;
+        try {
+            name = getSelectedTourName();
+        } catch (IndexOutOfBoundsException e) {
+            DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+            return;
+        }
         int idx = getSelectedTourIndex();
         Tour tour = null;
         try {
@@ -114,27 +124,18 @@ public class TourOverviewController {
 
         if (null != tour) {
             try {
-                /*if (App.getBusinessLogic().editTour(name, tour)) {
-                    tourOverviewViewModel.toursListProperty().set(idx, tour.getName());
-                }*/
                 App.getBusinessLogic().editTour(name, tour);
                 tourOverviewViewModel.toursListProperty().set(idx, tour.getName());
+            } catch (IllegalArgumentException e) {
+                DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    /*
-    public int getTourCount(){
-        return tourOverviewViewModel.getTourCount();
-    }
-
-     */
-
     @FXML
     public void initialize() {
-        //searchTextField.textProperty().bindBidirectional(searchBarViewModel.searchStringProperty());
         toursList.setItems(tourOverviewViewModel.toursListProperty());
     }
 }

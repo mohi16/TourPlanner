@@ -19,10 +19,6 @@ public class MainWindowController {
         this.mainWindowViewModel = mainWindowViewModel;
     }
 
-    /*public MainWindowController(MainWindowViewModel mainWindowViewModel) {
-        this.mainWindowViewModel = mainWindowViewModel;
-    }*/
-
     public MainWindowViewModel getMainViewModel() {
         return mainWindowViewModel;
     }

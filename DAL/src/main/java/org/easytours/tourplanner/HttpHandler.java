@@ -2,6 +2,7 @@ package org.easytours.tourplanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easytours.tourplanner.config.Config;
+import org.easytours.tpmodel.http.HttpMethod;
 
 
 import java.net.URI;

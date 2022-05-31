@@ -3,15 +3,21 @@ package org.easytours.tourplanner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.http.HttpMethod;
+import org.easytours.tpmodel.http.HttpStatusCode;
+
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import static java.net.http.HttpRequest.BodyPublisher;
 import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class SimpleHttpService implements HttpService {
     private HttpHandler httpHandler;
@@ -56,7 +62,7 @@ public class SimpleHttpService implements HttpService {
 
     @Override
     public void deleteTour(String name) throws Exception {
-        HttpResponse<String> response = httpHandler.sendRequest("/delete/" + name  + "/", HttpMethod.DELETE);
+        HttpResponse<String> response = httpHandler.sendRequest("/delete/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.DELETE);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
@@ -82,7 +88,9 @@ public class SimpleHttpService implements HttpService {
 
     @Override
     public void editTour(String name, Tour newTour) throws Exception {
-        HttpResponse<String> response = httpHandler.sendRequest("/edit/" + name  + "/", HttpMethod.PUT, newTour);
+        String encoder = URLEncoder.encode(name, StandardCharsets.UTF_8);
+        System.out.println(encoder);
+        HttpResponse<String> response = httpHandler.sendRequest("/edit/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.PUT, newTour);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
@@ -90,7 +98,9 @@ public class SimpleHttpService implements HttpService {
 
     @Override
     public Tour getTour(String name) throws Exception {
-        HttpResponse<String> response = httpHandler.sendRequest("/tours/" + name  + "/", HttpMethod.GET);
+        String encoder = URLEncoder.encode(name, StandardCharsets.UTF_8);
+        System.out.println(encoder);
+        HttpResponse<String> response = httpHandler.sendRequest("/tours/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.GET);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }

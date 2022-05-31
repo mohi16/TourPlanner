@@ -1,5 +1,7 @@
 package org.easytours.tourplanner;
 
+import org.easytours.tpmodel.http.HttpStatusCode;
+
 import javax.net.ssl.SSLSession;
 import java.net.URI;
 import java.net.http.HttpClient;

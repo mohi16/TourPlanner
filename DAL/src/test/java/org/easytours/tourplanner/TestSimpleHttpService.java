@@ -1,6 +1,8 @@
 package org.easytours.tourplanner;
 
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.http.HttpMethod;
+import org.easytours.tpmodel.http.HttpStatusCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

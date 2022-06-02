@@ -2,6 +2,7 @@ package org.easytours.tourplanner.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import org.easytours.tourplanner.App;
 import org.easytours.tourplanner.config.Config;
@@ -13,6 +14,7 @@ import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.easytours.tpmodel.Tour;
 
 import java.io.IOException;
+import java.util.Base64;
 
 public class TourOverviewController {
     private final TourOverviewViewModel tourOverviewViewModel;
@@ -50,7 +52,9 @@ public class TourOverviewController {
                 Thread th = new Thread(() -> {
                     try {
                         App.getBusinessLogic().addTour(tour);
-                        tourOverviewViewModel.toursListProperty().add(tour.getName());
+                        System.out.println("hello test2");
+                    } catch (IllegalStateException e) {
+                        //ignore
                     } catch (IllegalArgumentException e) {
                         badTour.set(true);
                     } catch (Exception e) {
@@ -67,6 +71,9 @@ public class TourOverviewController {
                 d.close();
                 if (badTour.get()) {
                     DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+                }
+                else{
+                    tourOverviewViewModel.toursListProperty().add(tour.getName());
                 }
 
             } catch (Exception e) {
@@ -135,7 +142,39 @@ public class TourOverviewController {
     }
 
     @FXML
+    public void onListViewClicked(){
+
+        Tour tour = null;
+        try {
+            tour = App.getBusinessLogic().getTourWithImage(getSelectedTourName());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        FXMLLoader loader = FXMLDependencyInjection.getLoader("tourdetails.fxml", Config.getConfig().getLang());
+        TourDetailsController tdc = loader.getController();
+/*        TourDetailsController tourDetailsController =
+                (TourDetailsController) ControllerFactory
+                        .getInstance()
+                        .create(TourDetailsController.class);*/
+
+        tdc.setImage(Base64.getDecoder().decode(tour.getImage()));
+    }
+
+    @FXML
     public void initialize() {
         toursList.setItems(tourOverviewViewModel.toursListProperty());
+
+        String[] tournames;
+        try {
+            tournames = App.getBusinessLogic().getTourNames();
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        for (String jeffrey: tournames) {
+            tourOverviewViewModel.toursListProperty().add(jeffrey);
+        }
     }
 }

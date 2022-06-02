@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -23,10 +20,10 @@
             <ToggleButton text="%TourDetails_Route" />
             <ToggleButton text="%TourDetails_Description" />
         </FlowPane>
-        <ImageView>
-            <image>
-                <Image url="@img/mapquest.png"/>
-            </image>
+        <ImageView fx:id="tourImageView">
+<!--            <image>-->
+<!--                <Image url="@img/mapquest.png"/>-->
+<!--            </image>-->
         </ImageView>
     </VBox>
     <!--<VBox GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3">-->

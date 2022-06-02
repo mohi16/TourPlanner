@@ -27,7 +27,7 @@
         <Button fx:id="deleteTourButton" alignment="CENTER_RIGHT" text="-" onAction="#onDeleteTourButtonClick" />
         <Button fx:id="editTourButton" alignment="CENTER_RIGHT" text="[]" onAction="#onEditTourButtonClick" />
     </HBox>
-    <ListView fx:id="toursList" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <ListView fx:id="toursList" onMouseClicked="#onListViewClicked" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <!-- tour items -->
     </ListView>
 </GridPane>

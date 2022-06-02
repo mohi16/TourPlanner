@@ -25,20 +25,22 @@ public class TestSimpleBusinessLogic {
             0,
             0,
             "asdf",
-            "asdfs"
+            "asdfs",
+            ""
         );
     }
 
     private Tour getBadTour() {
         return new Tour(
-                "Tourname",
-                "Description",
-                "",
-                "asdfasdf",
-                0,
-                0,
-                "asdf",
-                "asdfs"
+            "Tourname",
+            "Description",
+            "",
+            "asdfasdf",
+            0,
+            0,
+            "asdf",
+            "asdfs",
+            ""
         );
     }
 
@@ -209,4 +211,51 @@ public class TestSimpleBusinessLogic {
             fail();
         }
     }
+    
+    @Test
+    public void testGetTourNames(){
+        String[] expectedTourNames = new String[]{"Tour1", "Tour2", "Tour3"};
+        try{
+            when(httpService.getTourNames()).thenReturn(expectedTourNames);
+        } catch(Exception e){
+            fail();
+        }
+
+        String[] tournames = null;
+        try {
+            tournames = bl.getTourNames();
+        } catch(Exception e){
+            fail();
+        }
+
+        try {
+            verify(httpService).getTourNames();
+        } catch(Exception e){
+            fail();
+        }
+        assertArrayEquals(expectedTourNames, tournames);
+    }
+
+    @Test
+    public void testGetTourNamesFail(){
+        try{
+            when(httpService.getTourNames()).thenThrow(new Exception());
+        } catch(Exception e){
+            fail();
+        }
+
+        try {
+            bl.getTourNames();
+            fail();
+        } catch(Exception e){
+            //assertTrue
+        }
+
+        try {
+            verify(httpService).getTourNames();
+        } catch(Exception e){
+            fail();
+        }
+    }
+
 }

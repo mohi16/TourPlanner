@@ -75,7 +75,8 @@ public class AddTourController {
                     0,
                     0,  // TimeUtils.constructTime(addTourViewModel.getEstTimeHours(), addTourViewModel.getEstTimeMins(), addTourViewModel.getEstTimeSecs()),
                     addTourViewModel.getTransportType(),
-                    addTourViewModel.getRouteInfo()
+                    addTourViewModel.getRouteInfo(),
+                    ""
 
             );
 

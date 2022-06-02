@@ -55,15 +55,19 @@ public class SimpleBusinessLogic implements BusinessLogic {
 
         return httpService.getTour(name);
 
-        /*return new Tour(
-                "Tourname",
-                "Description",
-                "afsdf",
-                "asdfasdf",
-                100,
-                3665,
-                "asdf",
-                "asdfs"
-        );*/
+    }
+
+    @Override
+    public String[] getTourNames() throws Exception {
+        return httpService.getTourNames();
+    }
+
+    @Override
+    public Tour getTourWithImage(String name) throws Exception {
+        if (null == name || name.isEmpty()) {
+            throw new IllegalArgumentException("Name is null or empty");
+        }
+
+        return httpService.getTourWithImage(name);
     }
 }

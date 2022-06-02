@@ -8,4 +8,6 @@ public interface HttpService {
     void deleteTour(String name) throws Exception;
     void editTour(String name, Tour newTour) throws Exception;
     Tour getTour(String name) throws Exception;
+    String[] getTourNames() throws Exception;
+    Tour getTourWithImage(String name) throws Exception;
 }

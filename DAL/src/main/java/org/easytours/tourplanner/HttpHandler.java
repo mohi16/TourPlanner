@@ -1,6 +1,7 @@
 package org.easytours.tourplanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.util.Pair;
 import org.easytours.tourplanner.config.Config;
 import org.easytours.tpmodel.http.HttpMethod;
 
@@ -15,7 +16,6 @@ public class HttpHandler {
     public HttpResponse<String> sendRequest(String route, HttpMethod method) throws Exception {
         HttpClient client = getClient();
         HttpRequest request  = getRequest(route, method.name(), HttpRequest.BodyPublishers.noBody());
-
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 

@@ -99,8 +99,29 @@ public class SimpleHttpService implements HttpService {
     @Override
     public Tour getTour(String name) throws Exception {
         String encoder = URLEncoder.encode(name, StandardCharsets.UTF_8);
-        System.out.println(encoder);
         HttpResponse<String> response = httpHandler.sendRequest("/tours/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response.body(), Tour.class);
+    }
+
+    @Override
+    public String[] getTourNames() throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/tournames/", HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response.body(), String[].class);
+    }
+
+    @Override
+    public Tour getTourWithImage(String name) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/tourimage/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.GET);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }

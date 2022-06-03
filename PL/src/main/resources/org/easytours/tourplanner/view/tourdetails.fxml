@@ -59,16 +59,17 @@
                 <ColumnConstraints hgrow="NEVER" />
             </columnConstraints>
             <Label text="%TourDetails_Logs" GridPane.columnIndex="0" />
-            <Button text="+" GridPane.columnIndex="1"/>
-            <Button text="-" GridPane.columnIndex="2"/>
-            <Button text="[]" GridPane.columnIndex="3"/>
+            <Button text="+" GridPane.columnIndex="1" onAction="#onAddTourLogClicked"/>
+            <Button text="-" GridPane.columnIndex="2" onAction="#onDeleteTourLogClicked"/>
+            <Button text="[]" GridPane.columnIndex="3" onAction="#onEditTourLogClicked"/>
         </GridPane>
-        <TableView>
+        <TableView fx:id="tourLogsTableView">
             <columns>
-                <TableColumn text="%TourDetails_Date"/>
-                <TableColumn text="%TourDetails_Duration"/>
-                <TableColumn text="%TourDetails_Distance"/>
-                <TableColumn text="%TourDetails_ppp"/>
+                <TableColumn fx:id="dateTimeTableColumn" text="%TourDetails_DateTime"/>
+                <TableColumn fx:id="commentTableColumn" text="%TourDetails_Comment"/>
+                <TableColumn fx:id="difficultyTableColumn" text="%TourDetails_Difficulty"/>
+                <TableColumn fx:id="totalTimeTableColumn" text="%TourDetails_TotalTime"/>
+                <TableColumn fx:id="ratingTableColumn" text="%TourDetails_Rating"/>
             </columns>
         </TableView>
     </VBox>

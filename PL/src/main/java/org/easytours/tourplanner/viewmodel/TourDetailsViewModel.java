@@ -2,7 +2,10 @@ package org.easytours.tourplanner.viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.Getter;
+import org.easytours.tpmodel.TourLog;
 import org.easytours.tpmodel.utils.TimeUtils;
 import org.easytours.tpmodel.utils.Triple;
 
@@ -20,6 +23,8 @@ public class TourDetailsViewModel {
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty transportType = new SimpleStringProperty();
 
+    private final ObservableList<TourLog> tourLogs = FXCollections.observableArrayList();
+
     public void setDistance(double distance) {
         this.getDistance().set(String.valueOf(distance));
 
@@ -34,5 +39,14 @@ public class TourDetailsViewModel {
                         DateTimeFormatter.ofPattern("H:m:s")
                 )
         );
+    }
+
+    public final ObservableList<TourLog> tourLogsListProperty(){
+        return tourLogs;
+    }
+
+    public void setTourLogs(TourLog[] tourLogs) {
+        this.tourLogs.clear();
+        this.tourLogs.addAll(tourLogs);
     }
 }

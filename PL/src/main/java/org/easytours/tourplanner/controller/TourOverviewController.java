@@ -11,10 +11,7 @@ import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.easytours.tpmodel.Tour;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
+
 
 public class TourOverviewController {
     private final TourOverviewViewModel tourOverviewViewModel;
@@ -109,7 +106,7 @@ public class TourOverviewController {
         return toursList.getSelectionModel().getSelectedIndex();
     }
 
-    private String getSelectedTourName() {
+    public String getSelectedTourName() {
         return tourOverviewViewModel.toursListProperty().get(getSelectedTourIndex());
     }
 

@@ -1,6 +1,7 @@
 package org.easytours.tourplanner;
 
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.TourLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,6 +31,16 @@ public class TestSimpleBusinessLogic {
         );
     }
 
+    private TourLog getTourLog() {
+        return new TourLog(
+                "date",
+                "comment",
+                4,
+                23,
+                2
+        );
+    }
+
     private Tour getBadTour() {
         return new Tour(
             "Tourname",
@@ -41,6 +52,16 @@ public class TestSimpleBusinessLogic {
             "asdf",
             "asdfs",
             ""
+        );
+    }
+
+    private TourLog getBadTourLog() {
+        return new TourLog(
+                "date",
+                "comment",
+                4,
+                34,
+                6
         );
     }
 
@@ -254,6 +275,162 @@ public class TestSimpleBusinessLogic {
         try {
             verify(httpService).getTourNames();
         } catch(Exception e){
+            fail();
+        }
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    public void testAddTourLog() {
+        String tourname = "Tourname";
+        TourLog tourLog = getTourLog();
+
+        try {
+            bl.addTourLog(tourname, tourLog);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        try {
+            verify(httpService).addTourLog(tourname, tourLog);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testAddTourLogFail() {
+        String tourname = "Tourname";
+        TourLog tourLog = getBadTourLog();
+        boolean isThrown = false;
+
+        try {
+            bl.addTourLog(tourname, tourLog);
+        } catch (IllegalArgumentException e) {
+            isThrown = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        assertTrue(isThrown);
+        try {
+            verify(httpService, times(0)).addTourLog(tourname, tourLog);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testDeleteTourLog() {
+        int id = 1001;
+
+        try {
+            bl.deleteTourLog(id);
+        } catch (Exception e) {
+            fail();
+        }
+
+        try {
+            verify(httpService).deleteTourLog(id);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEditTourLog() {
+        int id = 1001;
+        TourLog newTourLog = getTourLog();
+
+        try {
+            bl.editTourLog(id, newTourLog);
+        } catch (Exception e) {
+            fail();
+        }
+
+        try {
+            verify(httpService).editTourLog(id, newTourLog);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEditTourLogFail(){
+        int id = 1001;
+        TourLog newTourLog = getBadTourLog();
+        boolean isThrown = false;
+
+        try {
+            bl.editTourLog(id, newTourLog);
+        } catch (IllegalArgumentException e) {
+            isThrown = true;
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertTrue(isThrown);
+        try {
+            verify(httpService, times(0)).editTourLog(id, newTourLog);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testGetTourLog() {
+        int id = 1001;
+        TourLog expectedTourLog = getTourLog();
+        //expectedTourLog.setDistance(100);
+        //expectedTourLog.setEstTime(3665);
+        try {
+            when(httpService.getTourLog(id)).thenReturn(expectedTourLog);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        TourLog tourLog = null;
+        try {
+            tourLog = bl.getTourLog(id);
+        } catch (Exception e) {
+            fail();
+        }
+
+        try {
+            verify(httpService).getTourLog(id);
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(expectedTourLog, tourLog);
+    }
+
+    @Test
+    public void testGetTourLogFail() {
+        int id = 1001;
+        boolean isThrown = false;
+        try {
+            when(httpService.getTourLog(id)).thenThrow(new Exception());
+        } catch (Exception e) {
+            fail();
+        }
+
+        TourLog tourLog = null;
+        try {
+            tourLog = bl.getTourLog(id);
+        } catch (Exception e) {
+            isThrown = true;
+        }
+
+        assertTrue(isThrown);
+        try {
+            verify(httpService).getTourLog(id);
+        } catch (Exception e) {
             fail();
         }
     }

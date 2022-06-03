@@ -3,6 +3,7 @@ package org.easytours.tourplanner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.TourLog;
 import org.easytours.tpmodel.http.HttpMethod;
 import org.easytours.tpmodel.http.HttpStatusCode;
 
@@ -129,4 +130,41 @@ public class SimpleHttpService implements HttpService {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(response.body(), Tour.class);
     }
+
+    @Override
+    public void addTourLog(String tourName, TourLog tourlog) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/addLog/" + URLEncoder.encode(tourName, StandardCharsets.UTF_8) + "/", HttpMethod.POST, tourlog);
+        if (!HttpStatusCode.isSame(HttpStatusCode.CREATED, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+    }
+
+    @Override
+    public void deleteTourLog(int id) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/deleteLog/" + id + "/", HttpMethod.DELETE);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+    }
+
+    @Override
+    public void editTourLog(int id, TourLog newTourLog) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/editLog/" + id + "/", HttpMethod.PUT, newTourLog);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+    }
+
+    @Override
+    public TourLog getTourLog(int id) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/logs/" + id + "/", HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response.body(), TourLog.class);
+    }
+
+
 }

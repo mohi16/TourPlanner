@@ -1,11 +1,8 @@
 package org.easytours.tourplanner.controller;
 
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
-import org.easytours.tourplanner.viewmodel.MainWindowViewModel;
-import org.easytours.tourplanner.viewmodel.SearchBarViewModel;
-import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
-import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
-import org.easytours.tourplanner.viewmodel.AddTourViewModel;
+import org.easytours.tourplanner.dialog.AddTourLogDialogHandler;
+import org.easytours.tourplanner.viewmodel.*;
 
 public class ControllerFactory {
     // Singleton
@@ -19,17 +16,23 @@ public class ControllerFactory {
     private final AddTourViewModel addTourViewModel;
     private final TourDetailsController tourDetailsController;
     private final AddTourDialogHandler addTourDialogHandler;
+    private final AddTourLogDialogHandler addTourLogDialogHandler;
+    private final AddTourLogViewModel addTourLogViewModel;
+    private final TourOverviewController tourOverviewController;
 
     private ControllerFactory() {
         searchBarViewModel = new SearchBarViewModel();
         tourOverviewViewModel = new TourOverviewViewModel();
         tourDetailsViewModel = new TourDetailsViewModel();
         addTourViewModel = new AddTourViewModel();
-        tourDetailsController = new TourDetailsController(tourDetailsViewModel);
+        addTourLogDialogHandler = new AddTourLogDialogHandler();
+        tourDetailsController = new TourDetailsController(tourDetailsViewModel, addTourLogDialogHandler);
         mainWindowViewModel = new MainWindowViewModel(
                 searchBarViewModel, tourOverviewViewModel, tourDetailsViewModel);
 
         addTourDialogHandler = new AddTourDialogHandler();
+        addTourLogViewModel = new AddTourLogViewModel();
+        tourOverviewController = new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
     }
 
     // Get Singleton instance
@@ -44,12 +47,15 @@ public class ControllerFactory {
         } else if (SearchBarController.class == controllerClass) {
             return new SearchBarController(searchBarViewModel);
         } else if (TourOverviewController.class == controllerClass) {
-            return new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
+            return tourOverviewController;
         } else if (TourDetailsController.class == controllerClass) {
             return tourDetailsController;
         } else if (AddTourController.class == controllerClass) {
             return new AddTourController(addTourViewModel);
-        } else {
+        } else if (AddTourLogController.class == controllerClass) {
+            return new AddTourLogController(addTourLogViewModel);
+        }
+        else {
             throw new IllegalArgumentException("no controller class: " + controllerClass);
         }
     }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.easytours.tourplanner.controller.AddTourLogController">
+
+    <content>
+        <VBox spacing="5.0">
+            <Label text="%TourDetails_DateTime" />
+            <TextField fx:id="dateTime" />
+            <Label text="%TourDetails_Comment"/>
+            <TextArea fx:id="comment" />
+            <Label text="%TourDetails_Difficulty" />
+            <TextField fx:id="difficulty"/>
+            <Label text="%TourDetails_TotalTime"/>
+            <GridPane hgap="5" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%AddTourLog_TotalTimeHours" />
+                <TextField GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="totalTimeHours" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="%AddTourLog_TotalTimeMins" />
+                <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="totalTimeMinutes" />
+                <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="%AddTourLog_TotalTimeSecs" />
+                <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="totalTimeSeconds" />
+            </GridPane>
+            <Label text="%TourDetails_Rating" />
+            <TextField fx:id="rating" />
+        </VBox>
+    </content>
+
+    <ButtonType text="%Dialog_OK" buttonData="OK_DONE"/>
+    <ButtonType text="%Dialog_Cancel" buttonData="CANCEL_CLOSE"/>
+</DialogPane>

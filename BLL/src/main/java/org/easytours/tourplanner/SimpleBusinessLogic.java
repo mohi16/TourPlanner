@@ -3,6 +3,7 @@ package org.easytours.tourplanner;
 
 
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.TourLog;
 
 import java.net.ConnectException;
 
@@ -70,4 +71,31 @@ public class SimpleBusinessLogic implements BusinessLogic {
 
         return httpService.getTourWithImage(name);
     }
+
+    @Override
+    public void addTourLog(String tourName, TourLog tourLog) throws Exception {
+        if (!tourLog.isValid() || null == tourName || tourName.isEmpty()) {
+            throw new IllegalArgumentException("The tour is not valid");
+        }
+        httpService.addTourLog(tourName, tourLog);
+
+    }
+
+    public void deleteTourLog(int id) throws Exception {
+        httpService.deleteTourLog(id);
+    }
+
+    public void editTourLog(int id, TourLog newTourLog) throws Exception {
+        if (!newTourLog.isValid()) {
+            throw new IllegalArgumentException("The tour log is not valid");
+        }
+
+        httpService.editTourLog(id, newTourLog);
+    }
+
+    public TourLog getTourLog(int id) throws Exception {
+        return httpService.getTourLog(id);
+    }
+
+
 }

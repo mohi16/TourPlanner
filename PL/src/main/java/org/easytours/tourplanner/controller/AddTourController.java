@@ -1,6 +1,7 @@
 package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.easytours.tourplanner.viewmodel.AddTourViewModel;

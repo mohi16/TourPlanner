@@ -2,12 +2,17 @@ package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
 
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.easytours.tourplanner.App;
+import org.easytours.tourplanner.dialog.AddTourLogDialogHandler;
+import org.easytours.tourplanner.dialog.DialogHandler;
+import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
 import org.easytours.tpmodel.Tour;
+import org.easytours.tpmodel.TourLog;
 
 import java.io.*;
 import java.util.Arrays;
@@ -15,6 +20,7 @@ import java.util.Base64;
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
+    private final AddTourLogDialogHandler dialogHandler;
 
     @FXML
     private ImageView tourImageView;
@@ -43,9 +49,28 @@ public class TourDetailsController {
     @FXML
     private TextField transportTypeTextField;
 
+    @FXML
+    private TableView<TourLog> tourLogsTableView;
 
-    public TourDetailsController(TourDetailsViewModel tourDetailsViewModel) {
+    @FXML
+    private TableColumn<TourLog, String> dateTimeTableColumn;
+
+    @FXML
+    private TableColumn<TourLog, String> commentTableColumn;
+
+    @FXML
+    private TableColumn<TourLog, String> difficultyTableColumn;
+
+    @FXML
+    private TableColumn<TourLog, String> totalTimeTableColumn;
+
+    @FXML
+    private TableColumn<TourLog, String> ratingTableColumn;
+
+
+    public TourDetailsController(TourDetailsViewModel tourDetailsViewModel, AddTourLogDialogHandler dialogHandler) {
         this.tourDetailsViewModel = tourDetailsViewModel;
+        this.dialogHandler = dialogHandler;
     }
 
     public void loadTour(Tour tour) {
@@ -57,6 +82,8 @@ public class TourDetailsController {
         tourDetailsViewModel.getTransportType().set(tour.getTransportType());
         tourDetailsViewModel.setEstTime(tour.getEstTime());
         tourDetailsViewModel.getRouteInfo().set(tour.getRouteInfo());
+
+        tourDetailsViewModel.setTourLogs(tour.getTourLogs());
     }
 
 
@@ -76,6 +103,110 @@ public class TourDetailsController {
         //tourImageView.setImage(new Image("file:img.png"));
     }
 
+    private TourOverviewController getTourOverviewController() {
+        return (TourOverviewController) ControllerFactory.getInstance().create(TourOverviewController.class);
+    }
+
+    @FXML
+    public void onAddTourLogClicked() {
+        TourLog tourLog = dialogHandler.createTourLog();
+        if (null != tourLog) {
+            try {
+                Wrapper<Boolean> badTour = new Wrapper<>(false);
+                Thread th = new Thread(() -> {
+                    try {
+                        TourOverviewController toc = getTourOverviewController();
+                        String tourName = toc.getSelectedTourName();
+                        App.getBusinessLogic().addTourLog(tourName, tourLog);
+                        System.out.println("hello test2");
+                    } catch (IllegalStateException e) {
+                        //ignore
+                    } catch (IllegalArgumentException e) {
+                        badTour.set(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                th.start();
+                Dialog<String> d = new Dialog<>();
+                d.setContentText(App.getResourceBundle().getString("Msg_Wait"));
+                d.show();
+                th.join();
+                // close waiting dialog
+                d.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                d.close();
+                if (badTour.get()) {
+                    DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+                }
+                else{
+                    tourDetailsViewModel.tourLogsListProperty().add(tourLog);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private int getSelectedTourLogIndex() {
+        return tourLogsTableView.getSelectionModel().getSelectedIndex();
+    }
+
+    private TourLog getSelectedTourLog() {
+        return tourLogsTableView.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    public void onDeleteTourLogClicked() {
+        System.out.println("Delete");
+
+        try {
+            TourLog tourLog = null;
+            try {
+                tourLog = getSelectedTourLog();
+            } catch (IndexOutOfBoundsException e) {
+                DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+                return;
+            }
+
+            App.getBusinessLogic().deleteTourLog(tourLog.getId());
+            tourDetailsViewModel.tourLogsListProperty().remove(getSelectedTourLogIndex());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onEditTourLogClicked() {
+        System.out.println("Edit");
+
+        int id;
+        try {
+            id = getSelectedTourLog().getId();
+        } catch (IndexOutOfBoundsException e) {
+            DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+            return;
+        }
+        int idx = getSelectedTourLogIndex();
+        TourLog tourLog = null;
+        try {
+            tourLog = dialogHandler.editTourLog(App.getBusinessLogic().getTourLog(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (null != tourLog) {
+            try {
+                App.getBusinessLogic().editTourLog(id, tourLog);
+                tourDetailsViewModel.tourLogsListProperty().set(idx, tourLog);
+            } catch (IllegalArgumentException e) {
+                DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML
     public void initialize() {
         fromTextField.textProperty().bindBidirectional(tourDetailsViewModel.getFrom());
@@ -85,5 +216,12 @@ public class TourDetailsController {
         estTimeTextField.textProperty().bindBidirectional(tourDetailsViewModel.getEstTime());
         transportTypeTextField.textProperty().bindBidirectional(tourDetailsViewModel.getTransportType());
         distanceTextField.textProperty().bindBidirectional(tourDetailsViewModel.getDistance());
+
+        tourLogsTableView.setItems(tourDetailsViewModel.tourLogsListProperty());
+        dateTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        commentTableColumn.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        difficultyTableColumn.setCellValueFactory(new PropertyValueFactory<>("difficultyAsString"));
+        totalTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("totalTimeAsString"));
+        ratingTableColumn.setCellValueFactory(new PropertyValueFactory<>("ratingAsString"));
     }
 }

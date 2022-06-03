@@ -59,4 +59,6 @@ public class App extends Application {
     public static ResourceBundle getResourceBundle() {
         return ResourceBundle.getBundle("org.easytours.tourplanner.view.gui_strings", Config.getConfig().getLang());
     }
+
+
 }

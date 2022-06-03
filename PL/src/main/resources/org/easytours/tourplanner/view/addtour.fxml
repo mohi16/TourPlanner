@@ -45,6 +45,7 @@
             </GridPane>-->
             <Label text="%AddTour_TransportType" />
             <TextField fx:id="transportType"/>
+            <!--<ComboBox fx:id="transportType"/>-->
             <Label text="%AddTour_RouteInfo" />
             <TextField fx:id="routeInfo"/>
         </VBox>

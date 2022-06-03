@@ -1,11 +1,9 @@
 package org.easytours.tourplanner.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import org.easytours.tourplanner.App;
-import org.easytours.tourplanner.config.Config;
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
 
 import org.easytours.tourplanner.dialog.DialogHandler;
@@ -13,7 +11,9 @@ import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.easytours.tpmodel.Tour;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 
 public class TourOverviewController {
@@ -31,6 +31,9 @@ public class TourOverviewController {
 
     @FXML
     private ListView<String> toursList;
+
+    @FXML
+    private ImageView tourImageView;
 
     public TourOverviewController(TourOverviewViewModel tourOverviewViewModel, AddTourDialogHandler dialogHandler) {
         this.tourOverviewViewModel = tourOverviewViewModel;
@@ -143,22 +146,68 @@ public class TourOverviewController {
 
     @FXML
     public void onListViewClicked(){
+        try {
+            Wrapper<Boolean> badTour = new Wrapper<>(false);
+            Wrapper<Tour> tour = new Wrapper<>();
+            Thread th = new Thread(() -> {
+                try {
+                    tour.set(App.getBusinessLogic().getTourWithImage(getSelectedTourName()));
+                    //System.out.println("hello test2");
+                } catch (IllegalStateException e) {
+                    //ignore
+                } catch (IllegalArgumentException e) {
+                    badTour.set(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    badTour.set(true);
+                }
+            });
+            th.start();
+            Dialog<String> d = new Dialog<>();
 
-        Tour tour = null;
+            d.setContentText(App.getResourceBundle().getString("Msg_Wait"));
+            d.setHeaderText("header");
+            d.show();
+            th.join();
+
+            // close waiting dialog
+            d.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            d.close();
+            if (badTour.get()) {
+                DialogHandler.showAlert(App.getResourceBundle().getString("Error_GetTour"));
+            }
+            else {
+                TourDetailsController tdc =
+                        (TourDetailsController) ControllerFactory
+                                .getInstance()
+                                .create(TourDetailsController.class);
+
+                //tdc.setImage(Base64.getDecoder().decode(tour.get().getImage()));
+                tdc.loadTour(tour.get());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*Tour tour = null;
         try {
             tour = App.getBusinessLogic().getTourWithImage(getSelectedTourName());
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-        FXMLLoader loader = FXMLDependencyInjection.getLoader("tourdetails.fxml", Config.getConfig().getLang());
-        TourDetailsController tdc = loader.getController();
-/*        TourDetailsController tourDetailsController =
+
+       TourDetailsController tdc =
                 (TourDetailsController) ControllerFactory
                         .getInstance()
-                        .create(TourDetailsController.class);*/
+                        .create(TourDetailsController.class);
 
-        tdc.setImage(Base64.getDecoder().decode(tour.getImage()));
+        tdc.setImage(Base64.getDecoder().decode(tour.getImage()));*/
+
+/*        InputStream inputStream = new ByteArrayInputStream(Base64.getDecoder().decode(tour.getImage()));
+        tourImageView.setImage(new Image(inputStream));*/
+        //System.out.println("hello");
     }
 
     @FXML

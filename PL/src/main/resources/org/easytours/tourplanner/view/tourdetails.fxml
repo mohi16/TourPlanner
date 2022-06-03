@@ -15,16 +15,36 @@
         <padding>
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
         </padding>
-        <Label text="%TourDetails_Title" />
-        <FlowPane>
-            <ToggleButton text="%TourDetails_Route" />
-            <ToggleButton text="%TourDetails_Description" />
-        </FlowPane>
-        <ImageView fx:id="tourImageView">
-<!--            <image>-->
-<!--                <Image url="@img/mapquest.png"/>-->
-<!--            </image>-->
-        </ImageView>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" minHeight="500">
+            <Tab text="%TourDetails_Route">
+                <ImageView fx:id="tourImageView"/>
+            </Tab>
+            <Tab text="%TourDetails_Description">
+               <VBox spacing="5">
+                   <Label text="%TourDetails_Description_From"/>
+                   <TextField fx:id="fromTextField" editable="false"/>
+
+                   <Label text="%TourDetails_Description_To"/>
+                   <TextField fx:id="toTextField" editable="false"/>
+
+                    <Label text="%TourDetails_Description_Description"/>
+                    <TextField fx:id="descriptionTextField" editable="false"/>
+
+                    <Label text="%TourDetails_Description_Distance"/>
+                    <TextField fx:id="distanceTextField" editable="false"/>
+
+                    <Label text="%TourDetails_Description_EstTime"/>
+                    <TextField fx:id="estTimeTextField" editable="false"/>
+
+                    <Label text="%TourDetails_Description_RouteInfo"/>
+                    <TextField fx:id="routeInfoTextField" editable="false"/>
+
+                    <Label text="%TourDetails_Description_TransportType"/>
+                    <TextField fx:id="transportTypeTextField" editable="false"/>
+                </VBox>
+            </Tab>
+        </TabPane>
+
     </VBox>
     <!--<VBox GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3">-->
     <VBox styleClass="vbox-vbox">

@@ -17,7 +17,7 @@ public class ControllerFactory {
     private final TourOverviewViewModel tourOverviewViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;
     private final AddTourViewModel addTourViewModel;
-
+    private final TourDetailsController tourDetailsController;
     private final AddTourDialogHandler addTourDialogHandler;
 
     private ControllerFactory() {
@@ -25,6 +25,7 @@ public class ControllerFactory {
         tourOverviewViewModel = new TourOverviewViewModel();
         tourDetailsViewModel = new TourDetailsViewModel();
         addTourViewModel = new AddTourViewModel();
+        tourDetailsController = new TourDetailsController(tourDetailsViewModel);
         mainWindowViewModel = new MainWindowViewModel(
                 searchBarViewModel, tourOverviewViewModel, tourDetailsViewModel);
 
@@ -45,7 +46,7 @@ public class ControllerFactory {
         } else if (TourOverviewController.class == controllerClass) {
             return new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
         } else if (TourDetailsController.class == controllerClass) {
-            return new TourDetailsController(tourDetailsViewModel);
+            return tourDetailsController;
         } else if (AddTourController.class == controllerClass) {
             return new AddTourController(addTourViewModel);
         } else {

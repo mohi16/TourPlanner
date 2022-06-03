@@ -7,41 +7,60 @@
 <?import java.net.URL?>
 
 <!--<GridPane gridLinesVisible="true" hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.MainWindowController">-->
-<GridPane hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
-    <stylesheets>
-        <URL value="@css/view.css"/>
-    </stylesheets>
+<!--<GridPane hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">-->
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
+    <MenuBar>
+        <Menu text="%Menu_File">
+            <MenuItem text="%Menu_File_Import"/>
+            <MenuItem text="%Menu_File_Export"/>
+        </Menu>
+        <Menu text="%Menu_Edit">
 
-    <columnConstraints>
-        <ColumnConstraints hgrow="NEVER" />
-        <ColumnConstraints hgrow="NEVER" />
-        <ColumnConstraints hgrow="ALWAYS" />
-        <ColumnConstraints hgrow="NEVER" />
-        <ColumnConstraints hgrow="NEVER" />
-    </columnConstraints>
+        </Menu>
+        <Menu text="%Menu_Options">
 
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+        </Menu>
+        <Menu text="%Menu_Help">
+            <MenuItem text="%Menu_Help_About"/>
+        </Menu>
+    </MenuBar>
+    <GridPane hgap="4.0" vgap="4.0" >
+        <stylesheets>
+                <URL value="@css/view.css"/>
+            </stylesheets>
 
-    <Button onAction="#onHelloButtonClick" text="%Menu_File" GridPane.columnIndex="0" maxWidth="Infinity"/>
-    <Button onAction="#onHelloButtonClick" text="%Menu_Edit" GridPane.columnIndex="1" maxWidth="Infinity" />
-    <Button onAction="#onHelloButtonClick" text="%Menu_Options" GridPane.columnIndex="2" maxWidth="Infinity"/>
-    <Button onAction="#onHelloButtonClick" text=" " GridPane.columnIndex="3" maxWidth="Infinity" />
-    <Button onAction="#onHelloButtonClick" text="%Menu_Help" GridPane.columnIndex="4" maxWidth="Infinity" />
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="NEVER" />
+            </columnConstraints>
 
-    <fx:include fx:id="searchBar" source="searchbar.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="5" maxWidth="Infinity"/>
-
-    <fx:include fx:id="tourOverview" source="touroverview.fxml"/>
-
-    <fx:include fx:id="tourDetails" source="tourdetails.fxml"/>
-
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
 
 
-</GridPane>
+            <!--<Button onAction="#onHelloButtonClick" text="%Menu_File" GridPane.columnIndex="0" maxWidth="Infinity"/>
+            <Button onAction="#onHelloButtonClick" text="%Menu_Edit" GridPane.columnIndex="1" maxWidth="Infinity" />
+            <Button onAction="#onHelloButtonClick" text="%Menu_Options" GridPane.columnIndex="2" maxWidth="Infinity"/>
+            <Button onAction="#onHelloButtonClick" text=" " GridPane.columnIndex="3" maxWidth="Infinity" />
+            <Button onAction="#onHelloButtonClick" text="%Menu_Help" GridPane.columnIndex="4" maxWidth="Infinity" />-->
+
+            <fx:include fx:id="searchBar" source="searchbar.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="5" maxWidth="Infinity"/>
+
+            <fx:include fx:id="tourOverview" source="touroverview.fxml"/>
+
+            <fx:include fx:id="tourDetails" source="tourdetails.fxml"/>
+
+           <rowConstraints>
+              <RowConstraints />
+              <RowConstraints />
+              <RowConstraints />
+              <RowConstraints />
+           </rowConstraints>
+
+
+    </GridPane>
+</VBox>

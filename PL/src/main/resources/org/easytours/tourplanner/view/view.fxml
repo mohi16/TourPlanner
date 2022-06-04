@@ -13,6 +13,11 @@
         <Menu text="%Menu_File">
             <MenuItem text="%Menu_File_Import"/>
             <MenuItem text="%Menu_File_Export"/>
+            <SeparatorMenuItem/>
+            <Menu text="%Menu_File_Report">
+                <MenuItem text="%Menu_File_Report_Single" onAction="#onSingleReportClicked"/>
+                <MenuItem text="%Menu_File_Report_All" onAction="#onAllReportClicked"/>
+            </Menu>
         </Menu>
         <Menu text="%Menu_Edit">
 

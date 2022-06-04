@@ -63,7 +63,7 @@ public class SimpleHttpService implements HttpService {
 
     @Override
     public void deleteTour(String name) throws Exception {
-        HttpResponse<String> response = httpHandler.sendRequest("/delete/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.DELETE);
+        HttpResponse<String> response = httpHandler.sendRequest("/delete/" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "/", HttpMethod.DELETE);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
@@ -91,7 +91,7 @@ public class SimpleHttpService implements HttpService {
     public void editTour(String name, Tour newTour) throws Exception {
         String encoder = URLEncoder.encode(name, StandardCharsets.UTF_8);
         System.out.println(encoder);
-        HttpResponse<String> response = httpHandler.sendRequest("/edit/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.PUT, newTour);
+        HttpResponse<String> response = httpHandler.sendRequest("/edit/" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "/", HttpMethod.PUT, newTour);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
@@ -122,7 +122,7 @@ public class SimpleHttpService implements HttpService {
 
     @Override
     public Tour getTourWithImage(String name) throws Exception {
-        HttpResponse<String> response = httpHandler.sendRequest("/tourimage/" + URLEncoder.encode(name, StandardCharsets.UTF_8)  + "/", HttpMethod.GET);
+        HttpResponse<String> response = httpHandler.sendRequest("/tourimage/" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "/", HttpMethod.GET);
         if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
@@ -132,11 +132,14 @@ public class SimpleHttpService implements HttpService {
     }
 
     @Override
-    public void addTourLog(String tourName, TourLog tourlog) throws Exception {
+    public int addTourLog(String tourName, TourLog tourlog) throws Exception {
         HttpResponse<String> response = httpHandler.sendRequest("/addLog/" + URLEncoder.encode(tourName, StandardCharsets.UTF_8) + "/", HttpMethod.POST, tourlog);
         if (!HttpStatusCode.isSame(HttpStatusCode.CREATED, response.statusCode())) {
             throw new Exception("something went wrong but i dont know what");
         }
+        System.out.println(response.body());
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response.body(), Integer.class);
     }
 
     @Override

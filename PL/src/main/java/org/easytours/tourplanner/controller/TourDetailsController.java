@@ -82,7 +82,6 @@ public class TourDetailsController {
         tourDetailsViewModel.getTransportType().set(tour.getTransportType());
         tourDetailsViewModel.setEstTime(tour.getEstTime());
         tourDetailsViewModel.getRouteInfo().set(tour.getRouteInfo());
-
         tourDetailsViewModel.setTourLogs(tour.getTourLogs());
     }
 
@@ -109,21 +108,35 @@ public class TourDetailsController {
 
     @FXML
     public void onAddTourLogClicked() {
-        TourLog tourLog = dialogHandler.createTourLog();
+        TourOverviewController toc = getTourOverviewController();
+        String tourName;
+        try {
+            tourName = toc.getSelectedTourName();
+        } catch (IndexOutOfBoundsException e) {
+            DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+            return;
+        }
+        TourLog tourLog;
+        try {
+            tourLog = dialogHandler.createTourLog();
+        } catch (Exception e) {
+            DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
+            return;
+        }
         if (null != tourLog) {
             try {
                 Wrapper<Boolean> badTour = new Wrapper<>(false);
+                Wrapper<Integer> id = new Wrapper<>();
                 Thread th = new Thread(() -> {
                     try {
-                        TourOverviewController toc = getTourOverviewController();
-                        String tourName = toc.getSelectedTourName();
-                        App.getBusinessLogic().addTourLog(tourName, tourLog);
+                        id.set(App.getBusinessLogic().addTourLog(tourName, tourLog));
                         System.out.println("hello test2");
                     } catch (IllegalStateException e) {
                         //ignore
                     } catch (IllegalArgumentException e) {
                         badTour.set(true);
                     } catch (Exception e) {
+                        badTour.set(true);
                         e.printStackTrace();
                     }
                 });
@@ -136,9 +149,10 @@ public class TourDetailsController {
                 d.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
                 d.close();
                 if (badTour.get()) {
-                    DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+                    DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
                 }
                 else{
+                    tourLog.setId(id.get());
                     tourDetailsViewModel.tourLogsListProperty().add(tourLog);
                 }
 
@@ -193,6 +207,8 @@ public class TourDetailsController {
             tourLog = dialogHandler.editTourLog(App.getBusinessLogic().getTourLog(id));
         } catch (Exception e) {
             e.printStackTrace();
+            DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
+            return;
         }
 
         if (null != tourLog) {

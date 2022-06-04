@@ -287,9 +287,16 @@ public class TestSimpleBusinessLogic {
     public void testAddTourLog() {
         String tourname = "Tourname";
         TourLog tourLog = getTourLog();
-
+        int expectedId = 1001;
         try {
-            bl.addTourLog(tourname, tourLog);
+            when(httpService.addTourLog(tourname, tourLog)).thenReturn(expectedId);
+        } catch (Exception e) {
+           fail();
+        }
+
+        int id = 0;
+        try {
+            id = bl.addTourLog(tourname, tourLog);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -297,6 +304,7 @@ public class TestSimpleBusinessLogic {
 
         try {
             verify(httpService).addTourLog(tourname, tourLog);
+            assertEquals(expectedId, id);
         } catch (Exception e) {
             fail();
         }

@@ -19,7 +19,7 @@ public interface HttpService {
     Tour getTourWithImage(String name) throws Exception;
 
     //TourLog
-    void addTourLog(String tourName, TourLog tourlog) throws Exception;
+    int addTourLog(String tourName, TourLog tourlog) throws Exception;
 
     void deleteTourLog(int id) throws Exception;
 

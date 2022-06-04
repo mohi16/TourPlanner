@@ -8,9 +8,11 @@ import org.easytours.tpmodel.http.HttpMethod;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 public class HttpHandler {
     public HttpResponse<String> sendRequest(String route, HttpMethod method) throws Exception {

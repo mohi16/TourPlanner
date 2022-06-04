@@ -32,4 +32,14 @@ public class MainWindowController {
     public void onHelloButtonClick(){
 
     }
+
+    @FXML
+    public void onSingleReportClicked() {
+
+    }
+
+    @FXML
+    public void onAllReportClicked() {
+
+    }
 }

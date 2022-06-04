@@ -14,7 +14,7 @@ public interface BusinessLogic {
     Tour getTourWithImage(String name) throws Exception;
 
     //TourLog
-    void addTourLog(String tourName, TourLog tourlog) throws Exception;
+    int addTourLog(String tourName, TourLog tourlog) throws Exception;
     void deleteTourLog(int id) throws Exception;
     void editTourLog(int id, TourLog newTourLog) throws Exception;
     TourLog getTourLog(int id) throws Exception;

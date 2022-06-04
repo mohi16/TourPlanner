@@ -73,11 +73,11 @@ public class SimpleBusinessLogic implements BusinessLogic {
     }
 
     @Override
-    public void addTourLog(String tourName, TourLog tourLog) throws Exception {
+    public int addTourLog(String tourName, TourLog tourLog) throws Exception {
         if (!tourLog.isValid() || null == tourName || tourName.isEmpty()) {
             throw new IllegalArgumentException("The tour is not valid");
         }
-        httpService.addTourLog(tourName, tourLog);
+        return httpService.addTourLog(tourName, tourLog);
 
     }
 

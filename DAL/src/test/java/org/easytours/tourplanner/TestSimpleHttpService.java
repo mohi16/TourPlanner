@@ -147,13 +147,16 @@ public class TestSimpleHttpService {
     public void testAddTourLog() {
         String tourname = "Tourname";
         TourLog tourLog = getTourLog();
+        int expectedId = 1001;
         try {
             when(httpHandler.sendRequest("/addLog/Tourname/", HttpMethod.POST, tourLog))
-                    .thenReturn(new MockHttpResponse<>(HttpStatusCode.CREATED));
+                    .thenReturn(new MockHttpResponse<>(HttpStatusCode.CREATED, "1001"));
 
-            httpService.addTourLog(tourname, tourLog);
+
+            int id = httpService.addTourLog(tourname, tourLog);
 
             verify(httpHandler).sendRequest("/addLog/Tourname/", HttpMethod.POST, tourLog);
+            assertEquals(expectedId, id);
         } catch (Exception e) {
             e.printStackTrace();
             fail();

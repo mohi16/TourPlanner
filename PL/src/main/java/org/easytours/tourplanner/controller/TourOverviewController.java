@@ -45,7 +45,13 @@ public class TourOverviewController {
     public void onAddTourButtonClick() {
         System.out.println("Add");
 
-        Tour tour = dialogHandler.createTour();
+        Tour tour;
+        try {
+            tour = dialogHandler.createTour();
+        } catch (Exception e) {
+            DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+            return;
+        }
         if (null != tour) {
             try {
                 Wrapper<Boolean> badTour = new Wrapper<>(false);
@@ -58,6 +64,7 @@ public class TourOverviewController {
                     } catch (IllegalArgumentException e) {
                         badTour.set(true);
                     } catch (Exception e) {
+                        badTour.set(true);
                         e.printStackTrace();
                     }
                 });
@@ -127,6 +134,8 @@ public class TourOverviewController {
             tour = dialogHandler.editTour(App.getBusinessLogic().getTour(name));
         } catch (Exception e) {
             e.printStackTrace();
+            DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+            return;
         }
 
         if (null != tour) {
@@ -220,6 +229,7 @@ public class TourOverviewController {
             throw new RuntimeException(e);
         }
         for (String jeffrey: tournames) {
+            System.out.println(jeffrey);
             tourOverviewViewModel.toursListProperty().add(jeffrey);
         }
     }

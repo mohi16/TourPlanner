@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
+import org.easytours.tourplanner.utils.ChildFriendliness;
 import org.easytours.tpmodel.TourLog;
 import org.easytours.tpmodel.utils.TimeUtils;
 import org.easytours.tpmodel.utils.Triple;
@@ -22,6 +23,8 @@ public class TourDetailsViewModel {
     private final StringProperty routeInfo = new SimpleStringProperty();
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty transportType = new SimpleStringProperty();
+    private final StringProperty popularity = new SimpleStringProperty();
+    private final StringProperty childFriendly = new SimpleStringProperty();
 
     private final ObservableList<TourLog> tourLogs = FXCollections.observableArrayList();
 
@@ -39,6 +42,14 @@ public class TourDetailsViewModel {
                         DateTimeFormatter.ofPattern("H:m:s")
                 )
         );
+    }
+
+    public void setPopularity(int popularity) {
+        this.popularity.set(String.valueOf(popularity));
+    }
+
+    public void setChildFriendly(ChildFriendliness childFriendliness) {
+        this.childFriendly.set(childFriendliness.getText());
     }
 
     public final ObservableList<TourLog> tourLogsListProperty(){

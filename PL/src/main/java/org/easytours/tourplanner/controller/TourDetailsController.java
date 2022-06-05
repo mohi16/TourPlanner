@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import org.easytours.tourplanner.App;
 import org.easytours.tourplanner.dialog.AddTourLogDialogHandler;
 import org.easytours.tourplanner.dialog.DialogHandler;
+import org.easytours.tourplanner.utils.Calculations;
 import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
 import org.easytours.tpmodel.Tour;
@@ -50,6 +51,12 @@ public class TourDetailsController {
     private TextField transportTypeTextField;
 
     @FXML
+    private TextField popularityTextField;
+
+    @FXML
+    private TextField childFriendlyTextField;
+
+    @FXML
     private TableView<TourLog> tourLogsTableView;
 
     @FXML
@@ -83,6 +90,8 @@ public class TourDetailsController {
         tourDetailsViewModel.setEstTime(tour.getEstTime());
         tourDetailsViewModel.getRouteInfo().set(tour.getRouteInfo());
         tourDetailsViewModel.setTourLogs(tour.getTourLogs());
+        tourDetailsViewModel.setPopularity(Calculations.computePopularity(tour.getTourLogs()));
+        tourDetailsViewModel.setChildFriendly(Calculations.computeChildFriendliness(tour.getTourLogs()));
     }
 
 
@@ -232,6 +241,8 @@ public class TourDetailsController {
         estTimeTextField.textProperty().bindBidirectional(tourDetailsViewModel.getEstTime());
         transportTypeTextField.textProperty().bindBidirectional(tourDetailsViewModel.getTransportType());
         distanceTextField.textProperty().bindBidirectional(tourDetailsViewModel.getDistance());
+        popularityTextField.textProperty().bindBidirectional(tourDetailsViewModel.getPopularity());
+        childFriendlyTextField.textProperty().bindBidirectional(tourDetailsViewModel.getChildFriendly());
 
         tourLogsTableView.setItems(tourDetailsViewModel.tourLogsListProperty());
         dateTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));

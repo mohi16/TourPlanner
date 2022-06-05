@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 public class App extends Application {
     private static BusinessLogic businessLogic;
+    private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,7 +25,7 @@ public class App extends Application {
 
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view.fxml"));
         Parent root = FXMLDependencyInjection.load("view.fxml", Config.getConfig().getLang());
-        Scene scene = new Scene(root, 1280, 720);
+        scene = new Scene(root, 1280, 720);
         stage.setTitle("Tour-Planner");
         stage.setScene(scene);
         stage.show();
@@ -58,6 +59,10 @@ public class App extends Application {
 
     public static ResourceBundle getResourceBundle() {
         return ResourceBundle.getBundle("org.easytours.tourplanner.view.gui_strings", Config.getConfig().getLang());
+    }
+
+    public static Scene getScene() {
+        return scene;
     }
 
 

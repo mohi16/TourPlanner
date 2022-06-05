@@ -27,5 +27,15 @@ public interface HttpService {
 
     TourLog getTourLog(int id) throws Exception;
 
+    byte[] generateSingleReport(String tourname) throws Exception;
+
+    byte[] generateSummaryReport() throws Exception;
+
+    void importTours(String json) throws Exception;
+
+    String exportTours() throws Exception;
+
+    String[] getTourNames(String filter) throws Exception;
+
 }
 

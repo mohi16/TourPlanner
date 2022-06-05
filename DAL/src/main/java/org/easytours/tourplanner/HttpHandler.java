@@ -37,6 +37,14 @@ public class HttpHandler {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
+    public HttpResponse<byte[]> sendRequestBytes(String route, HttpMethod method) throws Exception {
+        HttpClient client = getClient();
+
+        HttpRequest request  = getRequest(route, method.name(), HttpRequest.BodyPublishers.noBody());
+
+        return client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+    }
+
     private HttpClient getClient() {
         return HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_1_1)

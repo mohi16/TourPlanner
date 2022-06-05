@@ -2,6 +2,7 @@ package org.easytours.tourplanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.easytours.tourplanner.config.Config;
 import org.easytours.tpmodel.Tour;
 import org.easytours.tpmodel.TourLog;
 import org.easytours.tpmodel.http.HttpMethod;
@@ -19,6 +20,7 @@ import static java.net.http.HttpRequest.BodyPublisher;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class SimpleHttpService implements HttpService {
     private HttpHandler httpHandler;
@@ -169,5 +171,60 @@ public class SimpleHttpService implements HttpService {
         return objectMapper.readValue(response.body(), TourLog.class);
     }
 
+    @Override
+    public byte[] generateSingleReport(String tourname) throws Exception {
+        HttpResponse<byte[]> response = httpHandler.sendRequestBytes(
+                "/singleReport/" +
+                        URLEncoder.encode(tourname, StandardCharsets.UTF_8) +
+                        "/?lang=" + URLEncoder.encode(Config.getConfig().getLang().getLanguage(), StandardCharsets.UTF_8),
+                HttpMethod.GET
+        );
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
 
+        return response.body();
+    }
+
+    @Override
+    public byte[] generateSummaryReport() throws Exception {
+        HttpResponse<byte[]> response = httpHandler.sendRequestBytes(
+                "/summaryReport/?lang=" +
+                        URLEncoder.encode(Config.getConfig().getLang().getLanguage(), StandardCharsets.UTF_8),
+                HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        return response.body();
+    }
+
+    @Override
+    public void importTours(String json) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/import/", HttpMethod.POST, json);
+        if (!HttpStatusCode.isSame(HttpStatusCode.CREATED, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+    }
+
+    @Override
+    public String exportTours() throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/export/", HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        return response.body();
+    }
+
+    @Override
+    public String[] getTourNames(String filter) throws Exception {
+        HttpResponse<String> response = httpHandler.sendRequest("/tournames/?search=" + URLEncoder.encode(filter, StandardCharsets.UTF_8), HttpMethod.GET);
+        if (!HttpStatusCode.isSame(HttpStatusCode.OK, response.statusCode())) {
+            throw new Exception("something went wrong but i dont know what");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response.body(), String[].class);
+    }
 }

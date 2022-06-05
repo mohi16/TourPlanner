@@ -1,6 +1,7 @@
 package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import org.easytours.tourplanner.App;
@@ -171,6 +172,7 @@ public class TourOverviewController {
             th.start();
             Dialog<String> d = new Dialog<>();
 
+
             d.setContentText(App.getResourceBundle().getString("Msg_Wait"));
             d.setHeaderText("header");
             d.show();
@@ -216,13 +218,12 @@ public class TourOverviewController {
         //System.out.println("hello");
     }
 
-    @FXML
-    public void initialize() {
-        toursList.setItems(tourOverviewViewModel.toursListProperty());
+    public void loadTours(String filter) {
+        tourOverviewViewModel.toursListProperty().clear();
 
         String[] tournames;
         try {
-            tournames = App.getBusinessLogic().getTourNames();
+            tournames = App.getBusinessLogic().getTourNames(filter);
 
 
         } catch (Exception e) {
@@ -232,5 +233,15 @@ public class TourOverviewController {
             System.out.println(jeffrey);
             tourOverviewViewModel.toursListProperty().add(jeffrey);
         }
+    }
+
+    public void loadTours() {
+        loadTours(null);
+    }
+
+    @FXML
+    public void initialize() {
+        toursList.setItems(tourOverviewViewModel.toursListProperty());
+        loadTours();
     }
 }

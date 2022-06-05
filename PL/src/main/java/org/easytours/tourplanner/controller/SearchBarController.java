@@ -17,7 +17,9 @@ public class SearchBarController {
     @FXML
     protected void onSearchButtonClick() {
         System.out.println(searchBarViewModel.getSearchString());
-        searchTextField.clear();
+        TourOverviewController toc = (TourOverviewController) ControllerFactory.getInstance().create(TourOverviewController.class);
+        toc.loadTours(searchBarViewModel.getSearchString());
+        //searchTextField.clear();
     }
 
     @FXML

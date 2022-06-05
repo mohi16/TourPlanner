@@ -41,6 +41,12 @@
 
                     <Label text="%TourDetails_Description_TransportType"/>
                     <TextField fx:id="transportTypeTextField" editable="false"/>
+
+                   <Label text="%TourDetails_Description_Popularity"/>
+                   <TextField fx:id="popularityTextField" editable="false"/>
+
+                   <Label text="%TourDetails_Description_ChildFriendly"/>
+                   <TextField fx:id="childFriendlyTextField" editable="false"/>
                 </VBox>
             </Tab>
         </TabPane>

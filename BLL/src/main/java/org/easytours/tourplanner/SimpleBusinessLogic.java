@@ -5,6 +5,9 @@ package org.easytours.tourplanner;
 import org.easytours.tpmodel.Tour;
 import org.easytours.tpmodel.TourLog;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.ConnectException;
 
 public class SimpleBusinessLogic implements BusinessLogic {
@@ -97,5 +100,60 @@ public class SimpleBusinessLogic implements BusinessLogic {
         return httpService.getTourLog(id);
     }
 
+    @Override
+    public void generateSingleReport(File file, String tourname) throws Exception {
+        if (null == file || null == tourname || tourname.isEmpty()) {
+            throw new IllegalArgumentException("file or name is null");
+        }
 
+        byte[] pdfBytes = httpService.generateSingleReport(tourname);
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(pdfBytes);
+        fos.close();
+    }
+
+    @Override
+    public void generateSummaryReport(File file) throws Exception {
+        if (null == file) {
+            throw new IllegalArgumentException("file or name is null");
+        }
+
+        byte[] pdfBytes = httpService.generateSummaryReport();
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(pdfBytes);
+        fos.close();
+    }
+
+    @Override
+    public void importTours(File file) throws Exception {
+        if (null == file) {
+            throw new IllegalArgumentException("file is null");
+        }
+
+        FileInputStream fis = new FileInputStream(file);
+        byte[] bytes = fis.readAllBytes();
+        fis.close();
+        httpService.importTours(new String(bytes));
+    }
+
+    @Override
+    public void exportTours(File file) throws Exception {
+        if (null == file) {
+            throw new IllegalArgumentException("file is null");
+        }
+
+        byte[] bytes = httpService.exportTours().getBytes();
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(bytes);
+        fos.close();
+    }
+
+    @Override
+    public String[] getTourNames(String filter) throws Exception {
+        if (null == filter) {
+            return httpService.getTourNames();
+        } else {
+            return httpService.getTourNames(filter);
+        }
+    }
 }

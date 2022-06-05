@@ -8,11 +8,11 @@
 
 <!--<GridPane gridLinesVisible="true" hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.MainWindowController">-->
 <!--<GridPane hgap="4.0" vgap="4.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">-->
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
+<VBox fx:id="mainVBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.easytours.tourplanner.controller.MainWindowController">
     <MenuBar>
         <Menu text="%Menu_File">
-            <MenuItem text="%Menu_File_Import"/>
-            <MenuItem text="%Menu_File_Export"/>
+            <MenuItem text="%Menu_File_Import" onAction="#onImportClicked"/>
+            <MenuItem text="%Menu_File_Export" onAction="#onExportClicked"/>
             <SeparatorMenuItem/>
             <Menu text="%Menu_File_Report">
                 <MenuItem text="%Menu_File_Report_Single" onAction="#onSingleReportClicked"/>

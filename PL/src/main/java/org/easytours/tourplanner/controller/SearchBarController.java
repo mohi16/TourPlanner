@@ -2,6 +2,7 @@ package org.easytours.tourplanner.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.easytours.tourplanner.logging.LogManager;
 import org.easytours.tourplanner.viewmodel.SearchBarViewModel;
 
 public class SearchBarController {
@@ -16,7 +17,7 @@ public class SearchBarController {
 
     @FXML
     protected void onSearchButtonClick() {
-        System.out.println(searchBarViewModel.getSearchString());
+        LogManager.getLogger().info("Search String: " + searchBarViewModel.getSearchString());
         TourOverviewController toc = (TourOverviewController) ControllerFactory.getInstance().create(TourOverviewController.class);
         toc.loadTours(searchBarViewModel.getSearchString());
         //searchTextField.clear();

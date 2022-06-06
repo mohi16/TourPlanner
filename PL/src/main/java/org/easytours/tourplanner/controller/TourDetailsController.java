@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import org.easytours.tourplanner.App;
 import org.easytours.tourplanner.dialog.AddTourLogDialogHandler;
 import org.easytours.tourplanner.dialog.DialogHandler;
+import org.easytours.tourplanner.logging.LogManager;
 import org.easytours.tourplanner.utils.Calculations;
 import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourDetailsViewModel;
@@ -123,13 +124,17 @@ public class TourDetailsController {
             tourName = toc.getSelectedTourName();
         } catch (IndexOutOfBoundsException e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+            LogManager.getLogger().info("No selected Tour!");
+
             return;
         }
         TourLog tourLog;
         try {
             tourLog = dialogHandler.createTourLog();
+            LogManager.getLogger().info("Creating Tour Log..");
         } catch (Exception e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
+            LogManager.getLogger().warn("Tour not valid");
             return;
         }
         if (null != tourLog) {
@@ -139,7 +144,7 @@ public class TourDetailsController {
                 Thread th = new Thread(() -> {
                     try {
                         id.set(App.getBusinessLogic().addTourLog(tourName, tourLog));
-                        System.out.println("hello test2");
+                        LogManager.getLogger().info("Setting id..");
                     } catch (IllegalStateException e) {
                         //ignore
                     } catch (IllegalArgumentException e) {

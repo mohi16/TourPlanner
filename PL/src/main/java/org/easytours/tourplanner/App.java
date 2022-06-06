@@ -10,6 +10,8 @@ import org.easytours.tpmodel.config.ConfigLoader;
 import org.easytours.tourplanner.controller.FXMLDependencyInjection;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -35,13 +37,18 @@ public class App extends Application {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
             Config.load();
-
         } catch (IOException e) {
-            e.printStackTrace();
-            return;
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./appconfig.yaml"));
+            bw.write("lang: de\n" + "api: http://localhost:5001");
+            bw.close();
+            try {
+                Config.load();
+            } catch (IOException e2) {
+                return;
+            }
         }
 
         setBusinessLogic(new SimpleBusinessLogic(new SimpleHttpService(new HttpHandler())));

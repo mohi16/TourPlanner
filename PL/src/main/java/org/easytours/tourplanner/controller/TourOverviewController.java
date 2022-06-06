@@ -8,6 +8,7 @@ import org.easytours.tourplanner.App;
 import org.easytours.tourplanner.dialog.AddTourDialogHandler;
 
 import org.easytours.tourplanner.dialog.DialogHandler;
+import org.easytours.tourplanner.logging.LogManager;
 import org.easytours.tourplanner.utils.Wrapper;
 import org.easytours.tourplanner.viewmodel.TourOverviewViewModel;
 import org.easytours.tpmodel.Tour;
@@ -44,13 +45,13 @@ public class TourOverviewController {
 
     @FXML
     public void onAddTourButtonClick() {
-        System.out.println("Add");
 
         Tour tour;
         try {
             tour = dialogHandler.createTour();
         } catch (Exception e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+            LogManager.getLogger().warn("Tour not valid");
             return;
         }
         if (null != tour) {
@@ -59,14 +60,12 @@ public class TourOverviewController {
                 Thread th = new Thread(() -> {
                     try {
                         App.getBusinessLogic().addTour(tour);
-                        System.out.println("hello test2");
+                        LogManager.getLogger().info("Adding Tour");
                     } catch (IllegalStateException e) {
                         //ignore
-                    } catch (IllegalArgumentException e) {
-                        badTour.set(true);
                     } catch (Exception e) {
                         badTour.set(true);
-                        e.printStackTrace();
+                        LogManager.getLogger().warn("Tour not valid");
                     }
                 });
                 th.start();
@@ -79,9 +78,12 @@ public class TourOverviewController {
                 d.close();
                 if (badTour.get()) {
                     DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+
                 }
                 else{
                     tourOverviewViewModel.toursListProperty().add(tour.getName());
+                    LogManager.getLogger().warn("Tour added");
+
                 }
 
             } catch (Exception e) {
@@ -98,13 +100,17 @@ public class TourOverviewController {
             String tourname = null;
             try {
                 tourname = getSelectedTourName();
+                LogManager.getLogger().info("Deleting Tour");
             } catch (IndexOutOfBoundsException e) {
                 DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+                LogManager.getLogger().warn("No Tour selected. Please select a valid Tour.");
+
                 return;
             }
 
             App.getBusinessLogic().deleteTour(tourname);
             tourOverviewViewModel.toursListProperty().remove(getSelectedTourIndex());
+            LogManager.getLogger().info("Tour removed");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,22 +126,26 @@ public class TourOverviewController {
 
     @FXML
     public void onEditTourButtonClick() {
-        System.out.println("Edit");
 
         String name = null;
         try {
             name = getSelectedTourName();
         } catch (IndexOutOfBoundsException e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+            LogManager.getLogger().warn("Not a valid Tour");
+
             return;
         }
         int idx = getSelectedTourIndex();
         Tour tour = null;
         try {
             tour = dialogHandler.editTour(App.getBusinessLogic().getTour(name));
+            LogManager.getLogger().info("Editing tour");
+
         } catch (Exception e) {
             e.printStackTrace();
             DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+            LogManager.getLogger().warn("Tour not valid");
             return;
         }
 
@@ -143,8 +153,10 @@ public class TourOverviewController {
             try {
                 App.getBusinessLogic().editTour(name, tour);
                 tourOverviewViewModel.toursListProperty().set(idx, tour.getName());
+                LogManager.getLogger().info("Tour edited");
             } catch (IllegalArgumentException e) {
                 DialogHandler.showAlert(App.getResourceBundle().getString("BadTour_NotValid"));
+                LogManager.getLogger().warn("Tour not valid");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -159,14 +171,13 @@ public class TourOverviewController {
             Thread th = new Thread(() -> {
                 try {
                     tour.set(App.getBusinessLogic().getTourWithImage(getSelectedTourName()));
-                    //System.out.println("hello test2");
+                    LogManager.getLogger().warn("Displaying Tour");
+
                 } catch (IllegalStateException e) {
                     //ignore
-                } catch (IllegalArgumentException e) {
-                    badTour.set(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     badTour.set(true);
+                    LogManager.getLogger().warn("Tour not valid");
                 }
             });
             th.start();
@@ -183,6 +194,7 @@ public class TourOverviewController {
             d.close();
             if (badTour.get()) {
                 DialogHandler.showAlert(App.getResourceBundle().getString("Error_GetTour"));
+                LogManager.getLogger().warn("Tour not valid");
             }
             else {
                 TourDetailsController tdc =
@@ -192,6 +204,7 @@ public class TourOverviewController {
 
                 //tdc.setImage(Base64.getDecoder().decode(tour.get().getImage()));
                 tdc.loadTour(tour.get());
+                LogManager.getLogger().info("Tour displayed");
             }
 
         } catch (Exception e) {
@@ -233,6 +246,8 @@ public class TourOverviewController {
             System.out.println(jeffrey);
             tourOverviewViewModel.toursListProperty().add(jeffrey);
         }
+        LogManager.getLogger().info("Tours loaded");
+
     }
 
     public void loadTours() {

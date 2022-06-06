@@ -14,25 +14,37 @@ public class ControllerFactory {
     private final TourOverviewViewModel tourOverviewViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;
     private final AddTourViewModel addTourViewModel;
-    private final TourDetailsController tourDetailsController;
+    private final AddTourLogViewModel addTourLogViewModel;
+
     private final AddTourDialogHandler addTourDialogHandler;
     private final AddTourLogDialogHandler addTourLogDialogHandler;
-    private final AddTourLogViewModel addTourLogViewModel;
+
     private final TourOverviewController tourOverviewController;
+    private final TourDetailsController tourDetailsController;
+    private final MainWindowController mainWindowController;
+    private final SearchBarController searchBarController;
+    private final AddTourController addTourController;
+    private final AddTourLogController addTourLogController;
 
     private ControllerFactory() {
         searchBarViewModel = new SearchBarViewModel();
         tourOverviewViewModel = new TourOverviewViewModel();
         tourDetailsViewModel = new TourDetailsViewModel();
         addTourViewModel = new AddTourViewModel();
-        addTourLogDialogHandler = new AddTourLogDialogHandler();
-        tourDetailsController = new TourDetailsController(tourDetailsViewModel, addTourLogDialogHandler);
+        addTourLogViewModel = new AddTourLogViewModel();
         mainWindowViewModel = new MainWindowViewModel(
                 searchBarViewModel, tourOverviewViewModel, tourDetailsViewModel);
 
+        addTourLogDialogHandler = new AddTourLogDialogHandler();
         addTourDialogHandler = new AddTourDialogHandler();
-        addTourLogViewModel = new AddTourLogViewModel();
+
+        tourDetailsController = new TourDetailsController(tourDetailsViewModel, addTourLogDialogHandler);
         tourOverviewController = new TourOverviewController(tourOverviewViewModel, addTourDialogHandler);
+        mainWindowController = new MainWindowController(mainWindowViewModel);
+        searchBarController = new SearchBarController(searchBarViewModel);
+        addTourController = new AddTourController(addTourViewModel);
+        addTourLogController = new AddTourLogController(addTourLogViewModel);
+
     }
 
     // Get Singleton instance
@@ -43,17 +55,17 @@ public class ControllerFactory {
     // create controller object
     public Object create(Class<?> controllerClass) {
         if (MainWindowController.class == controllerClass) {
-            return new MainWindowController(mainWindowViewModel);
+            return mainWindowController;
         } else if (SearchBarController.class == controllerClass) {
-            return new SearchBarController(searchBarViewModel);
+            return searchBarController;
         } else if (TourOverviewController.class == controllerClass) {
             return tourOverviewController;
         } else if (TourDetailsController.class == controllerClass) {
             return tourDetailsController;
         } else if (AddTourController.class == controllerClass) {
-            return new AddTourController(addTourViewModel);
+            return addTourController;
         } else if (AddTourLogController.class == controllerClass) {
-            return new AddTourLogController(addTourLogViewModel);
+            return addTourLogController;
         }
         else {
             throw new IllegalArgumentException("no controller class: " + controllerClass);

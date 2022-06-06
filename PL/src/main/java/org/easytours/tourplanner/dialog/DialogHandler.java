@@ -4,6 +4,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import org.easytours.tourplanner.config.Config;
 import org.easytours.tourplanner.controller.FXMLDependencyInjection;
+import org.easytours.tourplanner.logging.LogManager;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class DialogHandler {
         Dialog<ButtonType> d = new Dialog<>();
         d.setContentText(message);
         d.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        LogManager.getLogger().warn("Showing Alert");
         d.showAndWait();
     }
 

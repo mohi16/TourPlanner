@@ -33,7 +33,6 @@ public class FXMLDependencyInjection {
     // get loader and resource bundles
     public static FXMLLoader getLoader(String location, Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("org.easytours.tourplanner.view.gui_strings", locale);
-        System.out.println(bundle.getString("TourDetails_Description"));
         return new FXMLLoader(
             FXMLDependencyInjection.class.getResource("/org/easytours/tourplanner/view/" + location),
             ResourceBundle.getBundle("org.easytours.tourplanner.view." + "gui_strings", locale),

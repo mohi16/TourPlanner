@@ -2,6 +2,7 @@ package org.easytours.tourplanner.config;
 
 import org.easytours.tpmodel.config.ConfigLoader;
 
+import java.awt.desktop.AppForegroundEvent;
 import java.io.IOException;
 
 public class Config {
@@ -14,4 +15,5 @@ public class Config {
     public static AppConfig getConfig(){
         return appConfig;
     }
+
 }

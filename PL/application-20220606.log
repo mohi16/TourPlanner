@@ -1,0 +1,54 @@
+2022-06-06 14:35:15.438 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 14:35:16.224 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:35:24.183 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: wirklich
+2022-06-06 14:35:24.256 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:35:34.023 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: Wirklich
+2022-06-06 14:35:34.070 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:35:51.959 [Thread-3] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Displaying Tour..
+2022-06-06 14:35:51.990 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tour displayed
+2022-06-06 14:36:27.793 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Creating Tour Log..
+2022-06-06 14:36:27.927 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tour Log added..
+2022-06-06 13:57:09.014 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 13:57:48.875 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Creating Tour Log..
+2022-06-06 13:57:48.875 [JavaFX Application Thread] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Creating Tour Log..
+2022-06-06 13:57:48.876 [JavaFX Application Thread] ERROR org.easytours.tpmodel.logging.Log4JWrapper - Creating Tour Log..
+2022-06-06 13:57:48.994 [Thread-4] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Setting id..
+2022-06-06 14:42:38.423 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 14:42:39.000 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:42:42.004 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: echt
+2022-06-06 14:42:42.053 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:42:46.721 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: 
+2022-06-06 14:42:46.764 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:42:54.800 [Thread-3] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Tour not valid
+2022-06-06 14:42:54.844 [JavaFX Application Thread] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Showing Alert
+2022-06-06 14:42:55.833 [JavaFX Application Thread] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Tour not valid
+2022-06-06 14:43:06.494 [Thread-4] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Tour not valid
+2022-06-06 14:43:06.513 [JavaFX Application Thread] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Showing Alert
+2022-06-06 14:43:09.333 [JavaFX Application Thread] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Tour not valid
+2022-06-06 14:43:11.603 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Deleting Tour
+2022-06-06 14:43:28.326 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 14:43:28.945 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:03.782 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 14:47:04.562 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:08.218 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: *
+2022-06-06 14:47:08.300 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:14.300 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: paris
+2022-06-06 14:47:14.345 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:16.605 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: *
+2022-06-06 14:47:16.654 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:22.814 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: par
+2022-06-06 14:47:22.859 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:27.091 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: pars
+2022-06-06 14:47:27.138 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:31.673 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: par*s
+2022-06-06 14:47:31.722 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:39.449 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: p*s
+2022-06-06 14:47:39.501 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 14:47:44.836 [Thread-3] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Displaying Tour
+2022-06-06 14:47:44.876 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tour displayed
+2022-06-06 14:47:56.385 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Search String: praters
+2022-06-06 14:47:56.430 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 15:03:48.789 [JavaFX Application Thread] FATAL org.easytours.tpmodel.logging.Log4JWrapper - irgendwas
+2022-06-06 15:03:49.632 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tours loaded
+2022-06-06 15:03:56.544 [Thread-3] WARN  org.easytours.tpmodel.logging.Log4JWrapper - Displaying Tour
+2022-06-06 15:03:56.577 [JavaFX Application Thread] INFO  org.easytours.tpmodel.logging.Log4JWrapper - Tour displayed

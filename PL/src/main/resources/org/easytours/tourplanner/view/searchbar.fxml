@@ -13,7 +13,7 @@
         <ColumnConstraints hgrow="NEVER"/>
     </columnConstraints>
 
-    <TextField GridPane.columnIndex="0" promptText="%SearchBar_Search"  fx:id="searchTextField" maxWidth="Infinity"/>
+    <TextField onAction="#onSearchButtonClick" GridPane.columnIndex="0" promptText="%SearchBar_Search"  fx:id="searchTextField" maxWidth="Infinity"/>
     <Button GridPane.columnIndex="1" onAction="#onSearchButtonClick" text="%SearchBar_Search" maxWidth="Infinity"/>
 
 </GridPane>

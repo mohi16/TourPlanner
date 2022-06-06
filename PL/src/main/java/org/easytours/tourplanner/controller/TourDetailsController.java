@@ -131,7 +131,7 @@ public class TourDetailsController {
         TourLog tourLog;
         try {
             tourLog = dialogHandler.createTourLog();
-            LogManager.getLogger().info("Creating Tour Log..");
+            LogManager.getLogger().info("Creating Tour Log");
         } catch (Exception e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
             LogManager.getLogger().warn("Tour not valid");
@@ -144,14 +144,14 @@ public class TourDetailsController {
                 Thread th = new Thread(() -> {
                     try {
                         id.set(App.getBusinessLogic().addTourLog(tourName, tourLog));
-                        LogManager.getLogger().info("Setting id..");
                     } catch (IllegalStateException e) {
                         //ignore
                     } catch (IllegalArgumentException e) {
                         badTour.set(true);
+                        LogManager.getLogger().warn("Illegal Argument");
                     } catch (Exception e) {
                         badTour.set(true);
-                        e.printStackTrace();
+                        LogManager.getLogger().error("Something went wrong");
                     }
                 });
                 th.start();
@@ -164,10 +164,12 @@ public class TourDetailsController {
                 d.close();
                 if (badTour.get()) {
                     DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
+                    LogManager.getLogger().warn("Tour not valid");
                 }
                 else{
                     tourLog.setId(id.get());
                     tourDetailsViewModel.tourLogsListProperty().add(tourLog);
+                    LogManager.getLogger().info("Tour Log added");
                 }
 
             } catch (Exception e) {
@@ -186,7 +188,7 @@ public class TourDetailsController {
 
     @FXML
     public void onDeleteTourLogClicked() {
-        System.out.println("Delete");
+        LogManager.getLogger().info("Deleting Tour");
 
         try {
             TourLog tourLog = null;
@@ -194,6 +196,7 @@ public class TourDetailsController {
                 tourLog = getSelectedTourLog();
             } catch (IndexOutOfBoundsException e) {
                 DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+                LogManager.getLogger().info("No Tour selected");
                 return;
             }
 
@@ -213,6 +216,7 @@ public class TourDetailsController {
             id = getSelectedTourLog().getId();
         } catch (IndexOutOfBoundsException e) {
             DialogHandler.showAlert(App.getResourceBundle().getString("NoSelected_Msg"));
+
             return;
         }
         int idx = getSelectedTourLogIndex();
@@ -221,6 +225,7 @@ public class TourDetailsController {
             tourLog = dialogHandler.editTourLog(App.getBusinessLogic().getTourLog(id));
         } catch (Exception e) {
             e.printStackTrace();
+            LogManager.getLogger().error("");
             DialogHandler.showAlert(App.getResourceBundle().getString("BadTourLog_NotValid"));
             return;
         }

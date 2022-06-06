@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
+import org.easytours.tourplanner.logging.LogManager;
 import org.easytours.tourplanner.utils.ChildFriendliness;
 import org.easytours.tpmodel.TourLog;
 import org.easytours.tpmodel.utils.TimeUtils;
@@ -35,13 +36,15 @@ public class TourDetailsViewModel {
 
     public void setEstTime(long estTime) {
         Triple<Integer, Integer, Integer> time = TimeUtils.deconstructTime(estTime);
-        this.getEstTime().set(
+        this.getEstTime().set(String.format("%02d:%02d:%02d", time.getValue1(), time.getValue2(), time.getValue3()));
+
+        /*this.getEstTime().set(
                 LocalTime.of(
                         time.getValue1(), time.getValue2(), time.getValue3()
                 ).format(
                         DateTimeFormatter.ofPattern("H:m:s")
                 )
-        );
+        );*/
     }
 
     public void setPopularity(int popularity) {
